@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { CompanySearch } from './company'
+import { CompanySearch } from '../Types/company'
 import { error } from 'console';
 interface SearchResponse {
     data: CompanySearch[]
