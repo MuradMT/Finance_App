@@ -23,12 +23,14 @@ function App() {
      }
      else if(Array.isArray(result.data)){
        setSearchResult(result.data);
+       console.log(searchResult)
      }
-     console.log(searchResult)
   }
   return (
     <div>
       <Search onClick={onClick} handleChange={handleChange} search={search} />
+      {/* {1===1?<h1>True</h1>:<h1>False</h1>} */}
+      {serverError&&<h1>{serverError}</h1>}
       <CardList />
     </div>
   );
