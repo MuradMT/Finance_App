@@ -5,11 +5,13 @@ import CardList from './Components/CardList/CardList';
 import Search from './Components/Search/Search';
 import { CompanySearch } from './Types/company';
 import { searchCompanies } from './API/api';
+import ListPortfolio from './Components/Portfolio/ListPortfolio/ListPortfolio';
 
 function App() {
   const [search, setSearch] = useState<string>("");
   const [searchResult, setSearchResult] = useState<CompanySearch[]>([]);
   const [serverError, setServerError] = useState<string | null>(null);
+  const [portfolioValues, setPortfolioValues] = useState<string[]>([]);
 
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value)
@@ -18,7 +20,10 @@ function App() {
 
   const onPortfolioCreate = (e: any) => {
     e.preventDefault();
-    console.log(e);
+    const exists=portfolioValues.find((value)=>value===e.target[0].value);
+    if(exists) return;
+    const updatedPortfolio = [...portfolioValues, e.target[0].value];
+    setPortfolioValues(updatedPortfolio);
   };
 
 
@@ -39,8 +44,7 @@ function App() {
   return (
     <div>
       <Search onSearchSubmit={onSearchSubmit} handleSearchChange={handleSearchChange} search={search} />
-      {/* {1===1?<h1>True</h1>:<h1>False</h1>} */}
-      {/* {serverError && <h1>{serverError}</h1>} */}
+      <ListPortfolio portfolioValues={portfolioValues} />
       <CardList searchResult={searchResult} onPortfolioCreate={onPortfolioCreate} />
       {serverError && <div>Unable to connect to API</div>}
     </div>
