@@ -6,6 +6,8 @@ import Search from './Components/Search/Search';
 import { CompanySearch } from './Types/company';
 import { searchCompanies } from './API/api';
 import ListPortfolio from './Components/Portfolio/ListPortfolio/ListPortfolio';
+import Navbar from './Components/Navbar/Navbar';
+import Hero from './Components/Hero/Hero';
 
 function App() {
   const [search, setSearch] = useState<string>("");
@@ -20,18 +22,18 @@ function App() {
 
   const onPortfolioCreate = (e: any) => {
     e.preventDefault();
-    const exists=portfolioValues.find((value)=>value===e.target[0].value);
-    if(exists) return;
+    const exists = portfolioValues.find((value) => value === e.target[0].value);
+    if (exists) return;
     const updatedPortfolio = [...portfolioValues, e.target[0].value];
     setPortfolioValues(updatedPortfolio);
   };
 
-  const onPortfolioDelete=(e:any)=>{
-        e.preventDefault();
-        const removed=portfolioValues.filter((value)=>{
-          return value!==e.target[0].value;
-        })
-        setPortfolioValues(removed);
+  const onPortfolioDelete = (e: any) => {
+    e.preventDefault();
+    const removed = portfolioValues.filter((value) => {
+      return value !== e.target[0].value;
+    })
+    setPortfolioValues(removed);
   }
 
 
@@ -51,8 +53,9 @@ function App() {
 
   return (
     <div>
+      <Navbar />
       <Search onSearchSubmit={onSearchSubmit} handleSearchChange={handleSearchChange} search={search} />
-      <ListPortfolio portfolioValues={portfolioValues} onPortfolioDelete={onPortfolioDelete}/>
+      <ListPortfolio portfolioValues={portfolioValues} onPortfolioDelete={onPortfolioDelete} />
       <CardList searchResult={searchResult} onPortfolioCreate={onPortfolioCreate} />
       {serverError && <div>Unable to connect to API</div>}
     </div>
