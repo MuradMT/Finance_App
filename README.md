@@ -34,5 +34,6 @@ For any questions or inquiries, please feel free to contact me at mammadzade03@g
 
 ## Screenshots
 Here are some screenshots of the Finance Application in action:
+![alt text](image-1.png)
 
-![alt text](image.png)
+![alt text](image-2.png)
