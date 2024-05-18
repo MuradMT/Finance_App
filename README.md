@@ -16,11 +16,6 @@ To get started with the Finance Application, follow these simple steps:
 3. Set up your environment variables by creating a `.env` file in the root directory.
 4. Start the development server by running `npm start` or `yarn start`.
 
-## Technologies Used
-- Frontend: React, TypeScript
-- Backend: .NET Core 8
-- API Data Source: Financial Modelling Prep
-
 ## Contributing
 We welcome contributions from the community! If you'd like to contribute to the Finance Application, please follow these guidelines:
 
