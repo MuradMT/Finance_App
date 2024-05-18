@@ -6,6 +6,7 @@ Welcome to the Finance Application, a powerful tool designed to help you stay in
 ## Features
 - Fetch data from the Financial Modelling Prep API
 - Frontend built with React and TypeScript
+- Styled with Tailwind CSS
 - Backend built with .NET Core 8
 
 ## Getting Started
