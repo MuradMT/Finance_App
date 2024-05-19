@@ -51,7 +51,7 @@ public static class StockEndpoints
         .WithName("getStock")
         .WithTags("Stocks");
 
-        routes.MapPost("/api/stock/addStock", async Task<IResult> ([FromBody] CreateStockDto stockDto, 
+        routes.MapPost("/api/stock", async Task<IResult> ([FromBody] CreateStockDto stockDto,
         ApplicationDbContext _context, IMapper _mapper) =>
         {
             try
@@ -59,7 +59,7 @@ public static class StockEndpoints
                 var stock = _mapper.Map<Stock>(stockDto);
                 _context.Stocks.Add(stock);
                 await _context.SaveChangesAsync();
-                return TypedResults.CreatedAtRoute(_mapper.Map<StockDto>(stock),"getStock",new {id=stock.Id});
+                return TypedResults.CreatedAtRoute(_mapper.Map<StockDto>(stock), "getStock", new { id = stock.Id });
             }
             catch (Exception e)
             {
@@ -69,6 +69,60 @@ public static class StockEndpoints
         .WithName("addStock")
         .WithTags("Stocks")
         .Produces<StockDto>(StatusCodes.Status201Created);
+
+        routes.MapPut("/api/stock/{id}", async Task<IResult> ([FromRoute] int id, [FromBody] UpdateStockDto stockDto,
+          ApplicationDbContext _context, IMapper _mapper) =>
+        {
+            try
+            {
+                var stock = await _context.Stocks.FirstOrDefaultAsync(x => x.Id == id);
+                if (stock is null)
+                {
+                    return TypedResults.NotFound();
+                }
+                stock.Symbol = stockDto.Symbol;
+                stock.CompanyName = stockDto.CompanyName;
+                stock.Purchase = stockDto.Purchase;
+                stock.LastDiv = stockDto.LastDiv;
+                stock.Industry = stockDto.Industry;
+                stock.MarketCap = stockDto.MarketCap;
+                _context.Stocks.Update(stock);
+                await _context.SaveChangesAsync();
+                return TypedResults.Ok(_mapper.Map<StockDto>(stock));
+            }
+            catch (Exception e)
+            {
+                return TypedResults.Problem(e.Message, statusCode: 500);
+            }
+
+        })
+        .WithName("updateStock")
+        .WithTags("Stocks")
+        .Produces<StockDto>(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status404NotFound);
+
+        routes.MapDelete("/api/stock/{id}", async Task<IResult> ([FromRoute] int id, ApplicationDbContext _context) =>
+        {
+            try
+            {
+                var stock = await _context.Stocks.FirstOrDefaultAsync(x => x.Id == id);
+                if (stock is null)
+                {
+                    return TypedResults.NotFound();
+                }
+                _context.Stocks.Remove(stock);
+                await _context.SaveChangesAsync();
+                return TypedResults.NoContent();
+            }
+            catch (Exception e)
+            {
+                return TypedResults.Problem(e.Message, statusCode: 500);
+            }
+        })
+        .WithName("deleteStock")
+        .WithTags("Stocks")
+        .Produces(StatusCodes.Status204NoContent)
+        .Produces(StatusCodes.Status404NotFound);
 
     }
 }

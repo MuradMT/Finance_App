@@ -11,6 +11,7 @@ public class MapperProfile:Profile
     {
         CreateMap<Stock,StockDto>();
         CreateMap<CreateStockDto,Stock>();
+    
         //.ForMember(dest=>dest.Symbol,opt=>opt.Ignore());
         //This code helps us to ignore specific property
     }

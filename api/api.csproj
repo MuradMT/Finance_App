@@ -25,7 +25,6 @@
 
   <ItemGroup>
     <Folder Include="Dtos\Comment\" />
-    <Folder Include="Dtos\Stock\Request\" />
     <Folder Include="Dtos\Stock\Response\" />
   </ItemGroup>
 
