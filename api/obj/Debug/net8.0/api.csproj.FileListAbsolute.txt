@@ -136,3 +136,4 @@ C:\Users\mamma\Finance\api\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runti
 C:\Users\mamma\Finance\api\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\mamma\Finance\api\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 C:\Users\mamma\Finance\api\obj\Debug\net8.0\api.sourcelink.json
+C:\Users\mamma\Finance\api\bin\Debug\net8.0\AutoMapper.dll

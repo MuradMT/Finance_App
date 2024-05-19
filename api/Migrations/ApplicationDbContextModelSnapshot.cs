@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using api;
+using api.Data;
 
 #nullable disable
 
@@ -22,7 +22,7 @@ namespace api.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("api.Comment", b =>
+            modelBuilder.Entity("api.Models.Comment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -51,7 +51,7 @@ namespace api.Migrations
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("api.Stock", b =>
+            modelBuilder.Entity("api.Models.Stock", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -85,16 +85,16 @@ namespace api.Migrations
                     b.ToTable("Stocks");
                 });
 
-            modelBuilder.Entity("api.Comment", b =>
+            modelBuilder.Entity("api.Models.Comment", b =>
                 {
-                    b.HasOne("api.Stock", "Stock")
+                    b.HasOne("api.Models.Stock", "Stock")
                         .WithMany("Comments")
                         .HasForeignKey("StockId");
 
                     b.Navigation("Stock");
                 });
 
-            modelBuilder.Entity("api.Stock", b =>
+            modelBuilder.Entity("api.Models.Stock", b =>
                 {
                     b.Navigation("Comments");
                 });
