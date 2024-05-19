@@ -1,11 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import App from "../App";
-import HomePage from "../Pages/HomePage/HomePage";
-import CompanyPage from "../Pages/CompanyPage/CompanyPage";
-import SearchPage from "../Pages/SearchPage/SearchPage";
-import CompanyProfile from "../Components/CompanyProfile/CompanyProfile";
-import IncomeStatement from "../Components/IncomeStatement/IncomeStatement";
-import DesignPage from "../Pages/DesignGuide/DesignGuide";
+import { App, HomePage, CompanyPage, SearchPage, CompanyProfile, IncomeStatement, DesignPage, BalanceSheet } from "./Imports";
 
 export const router = createBrowserRouter([
     {
@@ -35,6 +29,9 @@ export const router = createBrowserRouter([
                     {
                         path: "income-statement",
                         element: <IncomeStatement />
+                    },{
+                        path: "balance-sheet",
+                        element: <BalanceSheet />
                     }
                 ]
             }
