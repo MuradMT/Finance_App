@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "2jFf1vcbBzG47GR6D7enVQTUb7TADKM7awmsIKXTc1T9JeY6OIgYXBsMi6ygoU7NxU5nbYWYp3P5NHFQMlKYqw==",
+  "dgSpecHash": "FegzEZpX4FL2LVvsRYHTKbASlrneUIt3AXVcnXcl28iYXcdv9RlcFdDMD1n1cFoENv6X7Sudd2GjMRuOk5jPnw==",
   "success": true,
   "projectFilePath": "C:\\Users\\mamma\\Finance\\api\\api.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\mamma\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\mamma\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\mamma\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
     "C:\\Users\\mamma\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
