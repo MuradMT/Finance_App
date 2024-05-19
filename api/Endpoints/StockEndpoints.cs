@@ -12,7 +12,7 @@ public static class StockEndpoints
     public static void MapStockEndpoints(this IEndpointRouteBuilder routes)
     {
         
-        routes.MapGet("/api/stock", async Task<IResult>  (ApplicationDbContext _context) =>
+        routes.MapGet("/api/stocks", async Task<IResult>  (ApplicationDbContext _context) =>
         {
             try
             {
