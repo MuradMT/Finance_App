@@ -7,31 +7,31 @@ import RatioList from '../RatioList/RatioList';
 type Props = {}
 const config = [
   {
-    label: "Cash",
+    Label: "Cash",
     render: (company: CompanyBalanceSheet) => company.cashAndCashEquivalents,
   },
   {
-    label: "Inventory",
+    Label: "Inventory",
     render: (company: CompanyBalanceSheet) => company.inventory,
   },
   {
-    label: "Other Current Assets",
+    Label: "Other Current Assets",
     render: (company: CompanyBalanceSheet) => company.otherCurrentAssets,
   },
   {
-    label: "Minority Interest",
+    Label: "Minority Interest",
     render: (company: CompanyBalanceSheet) => company.minorityInterest,
   },
   {
-    label: "Other Non-Current Assets",
+    Label: "Other Non-Current Assets",
     render: (company: CompanyBalanceSheet) => company.otherNonCurrentAssets,
   },
   {
-    label: "Long Term Debt",
+    Label: "Long Term Debt",
     render: (company: CompanyBalanceSheet) => company.longTermDebt,
   },
   {
-    label: "Total Debt",
+    Label: "Total Debt",
     render: (company: CompanyBalanceSheet) => company.otherCurrentLiabilities,
   },
 ];

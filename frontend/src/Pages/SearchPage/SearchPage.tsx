@@ -12,7 +12,7 @@ const SearchPage = (props: Props) => {
   const [searchResult, setSearchResult] = useState<CompanySearch[]>([]);
   const [serverError, setServerError] = useState<string | null>(null);
   const [portfolioValues, setPortfolioValues] = useState<string[]>([]);
-
+  
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value)
     console.log(e)
