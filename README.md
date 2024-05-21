@@ -36,3 +36,8 @@ Here are some screenshots of the Finance Application in action:
 
 ![alt text](image-2.png)
 
+![alt text](image-5.png)
+
+![alt text](image-6.png)
+
+![alt text](image-7.png)
