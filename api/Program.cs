@@ -1,9 +1,7 @@
 using System.Reflection;
-using api;
 using api.Data;
 using api.Endpoints;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.JSInterop.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 

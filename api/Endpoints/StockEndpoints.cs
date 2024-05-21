@@ -1,6 +1,7 @@
 ﻿using api.Data;
 using api.Dtos.Stock.Request;
 using api.Dtos.Stock.Response;
+using api.Interfaces;
 using api.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -10,6 +11,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace api.Endpoints;
 
+#region History of async/await
+//These keywords firstly introduced by c#
+#endregion
+#region Reason why remove and update do not have async functionality
+//The reason why Delete() and Update() does not allow await is:
+//- It does not involve any immediate database interaction when called, merely a state change in memory
+//- does not involve waiting and is a quick in-memory operation, 
+//making it asynchronous would not provide any benefits and could even lead to less efficient resource utilization.
+#endregion
 
 public static class StockEndpoints
 {
@@ -17,11 +27,11 @@ public static class StockEndpoints
     public static void MapStockEndpoints(this IEndpointRouteBuilder routes)
     {
 
-        routes.MapGet("/api/stocks", async Task<IResult> (ApplicationDbContext _context, IMapper _mapper) =>
+        routes.MapGet("/api/stocks", async Task<IResult> (IStockRepository _repository, IMapper _mapper) =>
         {
             try
             {
-                var stocks = await _context.Stocks.ToListAsync();
+                var stocks = await _repository.GetAllAsync();
                 return TypedResults.Ok(_mapper.Map<List<StockDto>>(stocks));
 
             }
@@ -35,11 +45,11 @@ public static class StockEndpoints
         .Produces<List<StockDto>>(StatusCodes.Status200OK);
 
         routes.MapGet("/api/stock/{id}", async Task<Results<Ok<StockDto>, NotFound, ProblemHttpResult>> ([FromRoute] int id,
-        ApplicationDbContext _context, IMapper _mapper) =>
+        IStockRepository _repository, IMapper _mapper) =>
         {
             try
             {
-                var stock = await _context.Stocks.FirstOrDefaultAsync(stock => stock.Id == id);
+                var stock = await _repository.GetByIdAsync(id);
 
                 return stock is not null ? TypedResults.Ok(_mapper.Map<StockDto>(stock)) : TypedResults.NotFound();
             }
@@ -52,13 +62,12 @@ public static class StockEndpoints
         .WithTags("Stocks");
 
         routes.MapPost("/api/stock", async Task<IResult> ([FromBody] CreateStockDto stockDto,
-        ApplicationDbContext _context, IMapper _mapper) =>
+        IStockRepository _repository, IMapper _mapper) =>
         {
             try
             {
                 var stock = _mapper.Map<Stock>(stockDto);
-                _context.Stocks.Add(stock);
-                await _context.SaveChangesAsync();
+                await _repository.AddAsync(stock);
                 return TypedResults.CreatedAtRoute(_mapper.Map<StockDto>(stock), "getStock", new { id = stock.Id });
             }
             catch (Exception e)
@@ -71,11 +80,11 @@ public static class StockEndpoints
         .Produces<StockDto>(StatusCodes.Status201Created);
 
         routes.MapPut("/api/stock/{id}", async Task<IResult> ([FromRoute] int id, [FromBody] UpdateStockDto stockDto,
-          ApplicationDbContext _context, IMapper _mapper) =>
+          IStockRepository _repository, IMapper _mapper) =>
         {
             try
             {
-                var stock = await _context.Stocks.FirstOrDefaultAsync(x => x.Id == id);
+                var stock = await _repository.GetByIdAsync(id);
                 if (stock is null)
                 {
                     return TypedResults.NotFound();
@@ -86,8 +95,7 @@ public static class StockEndpoints
                 stock.LastDiv = stockDto.LastDiv;
                 stock.Industry = stockDto.Industry;
                 stock.MarketCap = stockDto.MarketCap;
-                _context.Stocks.Update(stock);
-                await _context.SaveChangesAsync();
+                await _repository.UpdateAsync(stock);
                 return TypedResults.Ok(_mapper.Map<StockDto>(stock));
             }
             catch (Exception e)
@@ -101,17 +109,16 @@ public static class StockEndpoints
         .Produces<StockDto>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
 
-        routes.MapDelete("/api/stock/{id}", async Task<IResult> ([FromRoute] int id, ApplicationDbContext _context) =>
+        routes.MapDelete("/api/stock/{id}", async Task<IResult> ([FromRoute] int id, IStockRepository _repository) =>
         {
             try
             {
-                var stock = await _context.Stocks.FirstOrDefaultAsync(x => x.Id == id);
+                var stock = await _repository.GetByIdAsync(id);
                 if (stock is null)
                 {
                     return TypedResults.NotFound();
                 }
-                _context.Stocks.Remove(stock);
-                await _context.SaveChangesAsync();
+                await _repository.DeleteAsync(stock);
                 return TypedResults.NoContent();
             }
             catch (Exception e)
