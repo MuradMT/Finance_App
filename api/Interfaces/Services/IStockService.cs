@@ -1,11 +1,8 @@
 ﻿namespace api.Interfaces.Services;
 
-public interface IStockService
+public interface IStockService:IService<CreateStockDto, StockDto>
 {
-    Task<List<StockDto>> GetAllStocksAsync();
-    Task<StockDto?> GetStockByIdAsync(int id);
-
-    Task<StockDto> CreateStockAsync(CreateStockDto stockDto);
+    
     Task<StockDto> UpdateStockAsync(int id, UpdateStockDto stockDto);
-    Task DeleteStockAsync(int id);
+    
 }

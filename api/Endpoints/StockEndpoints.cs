@@ -21,7 +21,7 @@ public static class StockEndpoints
         {
             try
             {
-                var stocks = await _service.GetAllStocksAsync();
+                var stocks = await _service.GetAllAsync();
                 return TypedResults.Ok(stocks);
 
             }
@@ -43,11 +43,11 @@ public static class StockEndpoints
         {
             try
             {
-                var stock = await _service.GetStockByIdAsync(id);
+                var stock = await _service.GetByIdAsync(id);
 
                 return TypedResults.Ok(stock);
             }
-            catch (StockNotFoundException)
+            catch (NotFoundException)
             {
                 return TypedResults.NotFound();
             }
@@ -68,7 +68,7 @@ public static class StockEndpoints
         {
             try
             {
-                var stock = await _service.CreateStockAsync(stockDto);
+                var stock = await _service.CreateAsync(stockDto);
                 return TypedResults.CreatedAtRoute(stock, "getStock", new { id = stock.Id });
             }
             catch (Exception e)
@@ -93,7 +93,7 @@ public static class StockEndpoints
                 
                 return TypedResults.Ok(stock);
             }
-            catch (StockNotFoundException)
+            catch (NotFoundException)
             {
                 return TypedResults.NotFound();
             }
@@ -116,10 +116,10 @@ public static class StockEndpoints
         {
             try
             {
-                await _service.DeleteStockAsync(id);
+                await _service.DeleteAsync(id);
                 return TypedResults.NoContent();
             }
-            catch (StockNotFoundException)
+            catch (NotFoundException)
             {
                 return TypedResults.NotFound();
             }

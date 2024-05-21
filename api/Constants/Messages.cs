@@ -1,6 +1,6 @@
 ﻿namespace api.Constants;
 
-public static class Messages
+public static class Messages<T>
 {
-     public const string StockNotFound = "Stock not found";
+     public const string NotFound = $"{nameof(T)} not found";
 }

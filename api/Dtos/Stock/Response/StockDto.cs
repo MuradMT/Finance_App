@@ -1,6 +1,6 @@
 ﻿namespace api.Dtos.Stock.Response;
 
-public class StockDto
+public class StockDto:IResponseDto
 {
     public int Id { get; set; }
     public string Symbol { get; set; } = string.Empty;

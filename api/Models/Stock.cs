@@ -1,6 +1,6 @@
 ﻿namespace api.Models;
 
-public class Stock
+public class Stock:IEntity
 {
     public int Id { get; set; }
     public string Symbol { get; set; } = string.Empty;

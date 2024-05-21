@@ -7,9 +7,16 @@ global using api.Constants;
 global using api.Exceptions;
 global using api.Endpoints;
 global using api.ServiceRegistration;
+global using api.Services;
+global using api.Models.AbstractModel;
+global using api.Helper;
+global using api.Helper.AbstractConverter;
 
 global using api.Dtos.Stock.Request;
 global using api.Dtos.Stock.Response;
+global using api.Dtos.AbstractDto;
+global using api.Dtos.Comment.Request;
+global using api.Dtos.Comment.Response;
 
 global using api.Interfaces.Services;
 global using api.Interfaces.Repositories;

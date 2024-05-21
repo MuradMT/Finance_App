@@ -1,6 +1,6 @@
 ﻿namespace api.Dtos.Stock.Request;
 
-public class UpdateStockDto
+public class UpdateStockDto:IUpdateRequestDto
 {
     public string Symbol { get; set; } = string.Empty;
     public string CompanyName { get; set; } = string.Empty;
