@@ -1,4 +1,4 @@
-﻿namespace api.Interfaces;
+﻿namespace api.Interfaces.Repositories;
 
 public interface IRepository<T> where T : class
 {

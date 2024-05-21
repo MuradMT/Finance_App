@@ -26,6 +26,7 @@
   <ItemGroup>
     <Folder Include="Dtos\Comment\" />
     <Folder Include="Dtos\Stock\Response\" />
+    <Folder Include="Interfaces\Repositories\" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,9 @@
 ﻿using api.Data;
 using api.Dtos.Stock.Request;
 using api.Dtos.Stock.Response;
+using api.Exceptions;
 using api.Interfaces;
+using api.Interfaces.Services;
 using api.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -27,12 +29,12 @@ public static class StockEndpoints
     public static void MapStockEndpoints(this IEndpointRouteBuilder routes)
     {
 
-        routes.MapGet("/api/stocks", async Task<IResult> (IStockRepository _repository, IMapper _mapper) =>
+        routes.MapGet("/api/stocks", async Task<IResult> (IStockService _service) =>
         {
             try
             {
-                var stocks = await _repository.GetAllAsync();
-                return TypedResults.Ok(_mapper.Map<List<StockDto>>(stocks));
+                var stocks = await _service.GetAllStocksAsync();
+                return TypedResults.Ok(stocks);
 
             }
             catch (Exception e)
@@ -45,13 +47,17 @@ public static class StockEndpoints
         .Produces<List<StockDto>>(StatusCodes.Status200OK);
 
         routes.MapGet("/api/stock/{id}", async Task<Results<Ok<StockDto>, NotFound, ProblemHttpResult>> ([FromRoute] int id,
-        IStockRepository _repository, IMapper _mapper) =>
+        IStockService _service) =>
         {
             try
             {
-                var stock = await _repository.GetByIdAsync(id);
+                var stock = await _service.GetStockByIdAsync(id);
 
-                return stock is not null ? TypedResults.Ok(_mapper.Map<StockDto>(stock)) : TypedResults.NotFound();
+                return TypedResults.Ok(stock);
+            }
+            catch (StockNotFoundException)
+            {
+                return TypedResults.NotFound();
             }
             catch (Exception e)
             {
@@ -62,13 +68,12 @@ public static class StockEndpoints
         .WithTags("Stocks");
 
         routes.MapPost("/api/stock", async Task<IResult> ([FromBody] CreateStockDto stockDto,
-        IStockRepository _repository, IMapper _mapper) =>
+        IStockService _service) =>
         {
             try
             {
-                var stock = _mapper.Map<Stock>(stockDto);
-                await _repository.AddAsync(stock);
-                return TypedResults.CreatedAtRoute(_mapper.Map<StockDto>(stock), "getStock", new { id = stock.Id });
+                var stock = await _service.CreateStockAsync(stockDto);
+                return TypedResults.CreatedAtRoute(stock, "getStock", new { id = stock.Id });
             }
             catch (Exception e)
             {
@@ -80,23 +85,17 @@ public static class StockEndpoints
         .Produces<StockDto>(StatusCodes.Status201Created);
 
         routes.MapPut("/api/stock/{id}", async Task<IResult> ([FromRoute] int id, [FromBody] UpdateStockDto stockDto,
-          IStockRepository _repository, IMapper _mapper) =>
+          IStockService _services) =>
         {
             try
             {
-                var stock = await _repository.GetByIdAsync(id);
-                if (stock is null)
-                {
-                    return TypedResults.NotFound();
-                }
-                stock.Symbol = stockDto.Symbol;
-                stock.CompanyName = stockDto.CompanyName;
-                stock.Purchase = stockDto.Purchase;
-                stock.LastDiv = stockDto.LastDiv;
-                stock.Industry = stockDto.Industry;
-                stock.MarketCap = stockDto.MarketCap;
-                await _repository.UpdateAsync(stock);
-                return TypedResults.Ok(_mapper.Map<StockDto>(stock));
+                var stock = await _services.UpdateStockAsync(id, stockDto);
+                
+                return TypedResults.Ok(stock);
+            }
+            catch (StockNotFoundException)
+            {
+                return TypedResults.NotFound();
             }
             catch (Exception e)
             {
@@ -109,17 +108,16 @@ public static class StockEndpoints
         .Produces<StockDto>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
 
-        routes.MapDelete("/api/stock/{id}", async Task<IResult> ([FromRoute] int id, IStockRepository _repository) =>
+        routes.MapDelete("/api/stock/{id}", async Task<IResult> ([FromRoute] int id, IStockService _service) =>
         {
             try
             {
-                var stock = await _repository.GetByIdAsync(id);
-                if (stock is null)
-                {
-                    return TypedResults.NotFound();
-                }
-                await _repository.DeleteAsync(stock);
+                await _service.DeleteStockAsync(id);
                 return TypedResults.NoContent();
+            }
+            catch (StockNotFoundException)
+            {
+                return TypedResults.NotFound();
             }
             catch (Exception e)
             {

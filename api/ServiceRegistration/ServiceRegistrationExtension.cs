@@ -16,12 +16,12 @@ public static class ServiceRegistrationExtension
 
         services.AddAutoMapper(opt =>
         {
-
             //builder.Services.AddAutoMapper(typeof(MapperProfile));
 
             opt.AddMaps(Assembly.GetExecutingAssembly());
         });
 
         services.AddScoped<IStockRepository, StockRepository>();
+        services.AddScoped<ICommentRepository, CommentRepository>();
     }
 }
