@@ -1,7 +1,5 @@
-using System.Reflection;
-using api.Data;
 using api.Endpoints;
-using Microsoft.EntityFrameworkCore;
+using api.ServiceRegistration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,14 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<ApplicationDbContext>(opt=>
-opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-//builder.Services.AddAutoMapper(typeof(MapperProfile));
-builder.Services.AddAutoMapper(opt=>{
-    opt.AddMaps(Assembly.GetExecutingAssembly());
-});
-
+builder.Services.AddCustomServices(builder.Configuration);
 
 var app = builder.Build();
 

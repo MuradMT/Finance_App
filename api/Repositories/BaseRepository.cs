@@ -26,7 +26,7 @@ public class BaseRepository<T,TContext>(TContext _context) : IRepository<T> wher
         return await _context.Set<T>().ToListAsync();
     }
 
-    public async Task<T> GetByIdAsync(int id)
+    public async Task<T?> GetByIdAsync(int id)
     {
         return await _context.Set<T>().FindAsync(id);
     }
