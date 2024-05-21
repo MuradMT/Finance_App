@@ -28,6 +28,7 @@ public static class StockEndpoints
 
     public static void MapStockEndpoints(this IEndpointRouteBuilder routes)
     {
+        #region Get All Stocks
 
         routes.MapGet("/api/stocks", async Task<IResult> (IStockService _service) =>
         {
@@ -45,6 +46,10 @@ public static class StockEndpoints
         .WithName("getAllStocks")
         .WithTags("Stocks")
         .Produces<List<StockDto>>(StatusCodes.Status200OK);
+ 
+        #endregion
+        
+        #region Get Stock By ID
 
         routes.MapGet("/api/stock/{id}", async Task<Results<Ok<StockDto>, NotFound, ProblemHttpResult>> ([FromRoute] int id,
         IStockService _service) =>
@@ -66,6 +71,10 @@ public static class StockEndpoints
         })
         .WithName("getStock")
         .WithTags("Stocks");
+         
+        #endregion
+        
+        #region Create Stock
 
         routes.MapPost("/api/stock", async Task<IResult> ([FromBody] CreateStockDto stockDto,
         IStockService _service) =>
@@ -83,6 +92,10 @@ public static class StockEndpoints
         .WithName("addStock")
         .WithTags("Stocks")
         .Produces<StockDto>(StatusCodes.Status201Created);
+         
+        #endregion
+
+        #region Update Stock
 
         routes.MapPut("/api/stock/{id}", async Task<IResult> ([FromRoute] int id, [FromBody] UpdateStockDto stockDto,
           IStockService _services) =>
@@ -107,6 +120,10 @@ public static class StockEndpoints
         .WithTags("Stocks")
         .Produces<StockDto>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
+        
+        #endregion
+
+        #region Delete Stock
 
         routes.MapDelete("/api/stock/{id}", async Task<IResult> ([FromRoute] int id, IStockService _service) =>
         {
@@ -130,4 +147,5 @@ public static class StockEndpoints
         .Produces(StatusCodes.Status404NotFound);
 
     }
+        #endregion
 }
