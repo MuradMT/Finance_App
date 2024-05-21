@@ -145,7 +145,8 @@ public static class StockEndpoints
         .WithTags("Stocks")
         .Produces(StatusCodes.Status204NoContent)
         .Produces(StatusCodes.Status404NotFound);
-
+        
+         #endregion
     }
-        #endregion
+       
 }

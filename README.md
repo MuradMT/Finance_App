@@ -8,6 +8,8 @@ Welcome to the Finance Application, a powerful tool designed to help you stay in
 - Frontend built with React and TypeScript
 - Styled with Tailwind CSS
 - Backend built with .NET Core 8 Minimal API
+- Monolithic architecture
+
 
 ## Getting Started
 To get started with the Finance Application, follow these simple steps:
@@ -34,8 +36,3 @@ Here are some screenshots of the Finance Application in action:
 
 ![alt text](image-2.png)
 
-![alt text](image.png)
-
-![alt text](image-3.png)
-
-![alt text](image-4.png)
