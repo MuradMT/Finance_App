@@ -38,7 +38,7 @@ public static class StockEndpoints
         
         #region Get Stock By ID
 
-        routes.MapGet("/api/stock/{id}", async Task<Results<Ok<StockDto>, NotFound, ProblemHttpResult>> ([FromRoute] int id,
+        routes.MapGet("/api/stock/{id}", async Task<IResult> ([FromRoute] int id,
         IStockService _service) =>
         {
             try
@@ -47,9 +47,9 @@ public static class StockEndpoints
 
                 return TypedResults.Ok(stock);
             }
-            catch (NotFoundException)
+            catch (NotFoundException e)
             {
-                return TypedResults.NotFound();
+                return TypedResults.NotFound(e.Message);
             }
             catch (Exception e)
             {
@@ -57,7 +57,9 @@ public static class StockEndpoints
             }
         })
         .WithName("getStock")
-        .WithTags("Stocks");
+        .WithTags("Stocks")
+        .Produces<StockDto>(StatusCodes.Status200OK)
+        .Produces<string>(StatusCodes.Status404NotFound);
          
         #endregion
         
@@ -93,9 +95,9 @@ public static class StockEndpoints
                 
                 return TypedResults.Ok(stock);
             }
-            catch (NotFoundException)
+            catch (NotFoundException e)
             {
-                return TypedResults.NotFound();
+                return TypedResults.NotFound(e.Message);
             }
             catch (Exception e)
             {
@@ -106,7 +108,7 @@ public static class StockEndpoints
         .WithName("updateStock")
         .WithTags("Stocks")
         .Produces<StockDto>(StatusCodes.Status200OK)
-        .Produces(StatusCodes.Status404NotFound);
+        .Produces<string>(StatusCodes.Status404NotFound);
         
         #endregion
 
@@ -119,9 +121,9 @@ public static class StockEndpoints
                 await _service.DeleteAsync(id);
                 return TypedResults.NoContent();
             }
-            catch (NotFoundException)
+            catch (NotFoundException e)
             {
-                return TypedResults.NotFound();
+                return TypedResults.NotFound(e.Message);
             }
             catch (Exception e)
             {
@@ -131,7 +133,7 @@ public static class StockEndpoints
         .WithName("deleteStock")
         .WithTags("Stocks")
         .Produces(StatusCodes.Status204NoContent)
-        .Produces(StatusCodes.Status404NotFound);
+        .Produces<string>(StatusCodes.Status404NotFound);
         
          #endregion
     }
