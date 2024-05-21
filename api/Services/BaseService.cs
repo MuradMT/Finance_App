@@ -4,7 +4,7 @@ namespace api.Services;
 
 public class BaseService<TCreateRequestDto, TResponseDto, TEntity, TUpdateRequestDto>
 (IRepository<TEntity> _repository, IMapper _mapper, IConverter<TEntity, TUpdateRequestDto> _converter)
-: IService<TCreateRequestDto, TResponseDto>
+: IService<TCreateRequestDto,TUpdateRequestDto, TResponseDto>
  where TCreateRequestDto : ICreateRequestDto
  where TResponseDto : IResponseDto
  where TEntity : class, IEntity
@@ -40,9 +40,9 @@ public class BaseService<TCreateRequestDto, TResponseDto, TEntity, TUpdateReques
         return entity is not null ? _mapper.Map<TResponseDto>(entity) : throw new NotFoundException(Messages<TEntity>.NotFound);
     }
 
-    public async Task<TResponseDto> UpdateStockAsync(int id, TUpdateRequestDto updateDto)
+    public async Task<TResponseDto> UpdateAsync(int id, TUpdateRequestDto updateDto)
     {
-        var entity = await _repository.GetByIdAsync(id);
+       var entity = await _repository.GetByIdAsync(id);
         if (entity is null)
         {
             throw new NotFoundException(Messages<TEntity>.NotFound);
@@ -51,4 +51,5 @@ public class BaseService<TCreateRequestDto, TResponseDto, TEntity, TUpdateReques
         await _repository.UpdateAsync(entity);
         return _mapper.Map<TResponseDto>(entity);
     }
+    
 }

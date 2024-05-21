@@ -89,7 +89,7 @@ public static class StockEndpoints
         {
             try
             {
-                var stock = await _services.UpdateStockAsync(id, stockDto);
+                var stock = await _services.UpdateAsync(id, stockDto);
                 
                 return TypedResults.Ok(stock);
             }

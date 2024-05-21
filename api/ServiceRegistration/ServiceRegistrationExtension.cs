@@ -16,7 +16,8 @@ public static class ServiceRegistrationExtension
 
             opt.AddMaps(Assembly.GetExecutingAssembly());
         });
-        services.AddScoped<IStockService, StockService>();  
+        services.AddScoped<IStockService, StockService>(); 
+        services.AddScoped<ICommentService, CommentService>(); 
         services.AddScoped<IStockRepository, StockRepository>();
         services.AddScoped<ICommentRepository, CommentRepository>();
 
