@@ -1,17 +1,4 @@
-﻿using api.Data;
-using api.Dtos.Stock.Request;
-using api.Dtos.Stock.Response;
-using api.Exceptions;
-using api.Interfaces;
-using api.Interfaces.Services;
-using api.Models;
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-
-namespace api.Endpoints;
+﻿namespace api.Endpoints;
 
 #region History of async/await
 //These keywords firstly introduced by c#

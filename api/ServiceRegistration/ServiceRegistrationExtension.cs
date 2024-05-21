@@ -1,10 +1,4 @@
-﻿using System.Reflection;
-using api.Data;
-using api.Interfaces;
-using api.Repositories;
-using Microsoft.EntityFrameworkCore;
-
-namespace api.ServiceRegistration;
+﻿namespace api.ServiceRegistration;
 
 // File: ServiceCollectionExtensions.cs
 public static class ServiceRegistrationExtension

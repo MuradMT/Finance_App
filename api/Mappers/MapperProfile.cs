@@ -1,9 +1,4 @@
-﻿using api.Dtos.Stock.Request;
-using api.Dtos.Stock.Response;
-using api.Models;
-using AutoMapper;
-
-namespace api.Mappers;
+﻿namespace api.Mappers;
 
 public class MapperProfile:Profile
 {

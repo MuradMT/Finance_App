@@ -1,13 +1,4 @@
-﻿using api.Constants;
-using api.Dtos.Stock.Request;
-using api.Dtos.Stock.Response;
-using api.Exceptions;
-using api.Interfaces.Repositories;
-using api.Interfaces.Services;
-using api.Models;
-using AutoMapper;
-
-namespace api.Services;
+﻿namespace api.Services;
 
 public class StockService(IStockRepository _repository, IMapper _mapper) : IStockService
 {

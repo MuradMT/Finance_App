@@ -1,7 +1,4 @@
-﻿using api.Dtos.Stock.Request;
-using api.Dtos.Stock.Response;
-
-namespace api.Interfaces.Services;
+﻿namespace api.Interfaces.Services;
 
 public interface IStockService
 {

@@ -1,8 +1,4 @@
-﻿using api.Data;
-using api.Interfaces;
-using Microsoft.EntityFrameworkCore;
-
-namespace api;
+﻿namespace api.Repositories;
 
 public class BaseRepository<T,TContext>(TContext _context) : IRepository<T> where T : class
     where TContext : DbContext
