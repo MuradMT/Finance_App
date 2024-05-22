@@ -21,7 +21,7 @@ public static class StockEndpoints
         {
             try
             {
-                var stocks = await _service.GetAllAsync();
+                var stocks = await _service.GetWithCommentsAllAsync();
                 return TypedResults.Ok(stocks);
 
             }
@@ -43,7 +43,7 @@ public static class StockEndpoints
         {
             try
             {
-                var stock = await _service.GetByIdAsync(id);
+                var stock = await _service.GetWithCommentsByIdAsync(id);
 
                 return TypedResults.Ok(stock);
             }

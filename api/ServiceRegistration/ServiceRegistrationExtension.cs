@@ -16,6 +16,7 @@ public static class ServiceRegistrationExtension
         });
         services.AddScoped<IUnitOfWork<Comment, ApplicationDbContext>, UnitOfWork<Comment, ApplicationDbContext>>();
         services.AddScoped<IUnitOfWork<Stock, ApplicationDbContext>, UnitOfWork<Stock, ApplicationDbContext>>();
+        services.AddScoped<IStockRepository, StockRepository>();
         services.AddScoped<IStockService, StockService>(); 
         services.AddScoped<ICommentService, CommentService>(); 
         services.AddScoped<IConverter<Stock,UpdateStockDto>, StockConverter>();

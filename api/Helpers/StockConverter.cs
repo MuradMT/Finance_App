@@ -2,13 +2,13 @@
 
 public  class StockConverter:IConverter<Stock,UpdateStockDto>
 {
-   public  void Convert(Stock stock,UpdateStockDto stockDto){
+   public  void Convert(Stock entity,UpdateStockDto dto){
     
-        stock.Symbol = stockDto.Symbol;
-        stock.CompanyName = stockDto.CompanyName;
-        stock.Purchase = stockDto.Purchase;
-        stock.LastDiv = stockDto.LastDiv;
-        stock.Industry = stockDto.Industry;
-        stock.MarketCap = stockDto.MarketCap;
+        entity.Symbol = dto.Symbol;
+        entity.CompanyName = dto.CompanyName;
+        entity.Purchase = dto.Purchase;
+        entity.LastDiv = dto.LastDiv;
+        entity.Industry = dto.Industry;
+        entity.MarketCap = dto.MarketCap;
    }
 }

@@ -4,6 +4,9 @@ public class CommentConverter : IConverter<Comment, UpdateCommentDto>
 {
     public void Convert(Comment entity, UpdateCommentDto dto)
     {
-        throw new NotImplementedException();
+        entity.StockId = dto.StockId;
+        entity.Content = dto.Content;
+        entity.CreatedOn = dto.CreatedOn;
+        entity.Title = dto.Title;
     }
 }

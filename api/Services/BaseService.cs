@@ -1,6 +1,4 @@
-﻿
-
-namespace api.Services;
+﻿namespace api.Services;
 
 public class BaseService<TEntity,TContext, TResponseDto,TCreateRequestDto, TUpdateRequestDto>
 (IUnitOfWork<TEntity,TContext> _unitofwork, IMapper _mapper, IConverter<TEntity, TUpdateRequestDto> _converter)
@@ -9,7 +7,8 @@ public class BaseService<TEntity,TContext, TResponseDto,TCreateRequestDto, TUpda
  where TContext : DbContext
  where TResponseDto : IResponseDto
  where TCreateRequestDto : ICreateRequestDto
- where TUpdateRequestDto : IUpdateRequestDto
+ where TUpdateRequestDto : class,IUpdateRequestDto
+
 {
 
     public async Task<TResponseDto> CreateAsync(TCreateRequestDto createDto)
