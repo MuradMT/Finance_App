@@ -13,11 +13,12 @@
 public static class StockEndpoints
 {
 
-    public static void MapStockEndpoints(this IEndpointRouteBuilder routes)
+    public static void MapStockEndpoints(this IEndpointRouteBuilder app)
     {
+        var routes = app.MapGroup("/api/stocks").WithOpenApi();
         #region Get All Stocks
 
-        routes.MapGet("/api/stocks", async Task<IResult> (IStockService _service) =>
+        routes.MapGet("", async Task<IResult> (IStockService _service) =>
         {
             try
             {
@@ -32,13 +33,14 @@ public static class StockEndpoints
         })
         .WithName("getAllStocks")
         .WithTags("Stocks")
+        .WithSummary(ConstantMessages.GetAllStocks)
         .Produces<List<StockDto>>(StatusCodes.Status200OK);
  
         #endregion
         
         #region Get Stock By ID
 
-        routes.MapGet("/api/stock/{id}", async Task<IResult> ([FromRoute] int id,
+        routes.MapGet("/{id:int}", async Task<IResult> ([FromRoute] int id,
         IStockService _service) =>
         {
             try
@@ -58,14 +60,15 @@ public static class StockEndpoints
         })
         .WithName("getStock")
         .WithTags("Stocks")
+        .WithSummary(ConstantMessages.GetStockById)
         .Produces<StockDto>(StatusCodes.Status200OK)
-        .Produces<string>(StatusCodes.Status404NotFound);
+        .Produces(StatusCodes.Status404NotFound);
          
         #endregion
         
         #region Create Stock
 
-        routes.MapPost("/api/stock", async Task<IResult> ([FromBody] CreateStockDto stockDto,
+        routes.MapPost("", async Task<IResult> ([FromBody] CreateStockDto stockDto,
         IStockService _service) =>
         {
             try
@@ -80,13 +83,16 @@ public static class StockEndpoints
         })
         .WithName("addStock")
         .WithTags("Stocks")
-        .Produces<StockDto>(StatusCodes.Status201Created);
+        .WithSummary(ConstantMessages.CreateStock)
+        .WithRequestValidation<CreateStockDto>()
+        .Produces<StockDto>(StatusCodes.Status201Created)
+        .Produces(StatusCodes.Status400BadRequest);
          
         #endregion
 
         #region Update Stock
 
-        routes.MapPut("/api/stock/{id}", async Task<IResult> ([FromRoute] int id, [FromBody] UpdateStockDto stockDto,
+        routes.MapPut("/{id:int}", async Task<IResult> ([FromRoute] int id, [FromBody] UpdateStockDto stockDto,
           IStockService _services) =>
         {
             try
@@ -107,14 +113,17 @@ public static class StockEndpoints
         })
         .WithName("updateStock")
         .WithTags("Stocks")
+        .WithSummary(ConstantMessages.UpdateStock)
+        .WithRequestValidation<UpdateStockDto>()
         .Produces<StockDto>(StatusCodes.Status200OK)
-        .Produces<string>(StatusCodes.Status404NotFound);
+        .Produces(StatusCodes.Status400BadRequest)
+        .Produces(StatusCodes.Status404NotFound);
         
         #endregion
 
         #region Delete Stock
 
-        routes.MapDelete("/api/stock/{id}", async Task<IResult> ([FromRoute] int id, IStockService _service) =>
+        routes.MapDelete("/{id:int}", async Task<IResult> ([FromRoute] int id, IStockService _service) =>
         {
             try
             {
@@ -132,8 +141,9 @@ public static class StockEndpoints
         })
         .WithName("deleteStock")
         .WithTags("Stocks")
+        .WithSummary(ConstantMessages.DeleteStock)
         .Produces(StatusCodes.Status204NoContent)
-        .Produces<string>(StatusCodes.Status404NotFound);
+        .Produces(StatusCodes.Status404NotFound);
         
          #endregion
     }

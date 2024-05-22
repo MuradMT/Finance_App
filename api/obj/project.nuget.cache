@@ -1,12 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "LErKgXp6JemeUGgfx4gECpryqPuolE3uL9EBIdet5yKwaop1pXhFXRH9sghpAbSAUkqzDBD3sUAvjQ27fmlNNg==",
+  "dgSpecHash": "B/aYAEZSvKvMvdeQCEUI4TYFnprMlB0VnPkDOgcYFf3FQcZiJR2oRdWmT7QNDdamxpxNTCaIhJBlKA3WIoAaIw==",
   "success": true,
   "projectFilePath": "C:\\Users\\mamma\\Finance\\api\\api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mamma\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\mamma\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\mamma\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
+    "C:\\Users\\mamma\\.nuget\\packages\\fluentvalidation\\11.9.1\\fluentvalidation.11.9.1.nupkg.sha512",
+    "C:\\Users\\mamma\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.3.0\\fluentvalidation.aspnetcore.11.3.0.nupkg.sha512",
+    "C:\\Users\\mamma\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.9.1\\fluentvalidation.dependencyinjectionextensions.11.9.1.nupkg.sha512",
     "C:\\Users\\mamma\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\mamma\\.nuget\\packages\\microsoft.aspnetcore.openapi\\8.0.1\\microsoft.aspnetcore.openapi.8.0.1.nupkg.sha512",
     "C:\\Users\\mamma\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",

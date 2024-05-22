@@ -12,6 +12,7 @@ global using api.Models.AbstractModel;
 global using api.Helpers;
 global using api.Helpers.AbstractConverter;
 global using api.Services.UnitOfWork;
+global using api.Validators.ValidationConfiguration;
 
 global using api.Dtos.Stock.Request;
 global using api.Dtos.Stock.Response;
@@ -32,6 +33,9 @@ global using Microsoft.EntityFrameworkCore.Migrations;
 
 global using System.Reflection;
 global using System.ComponentModel.DataAnnotations.Schema;
+
+global using FluentValidation;
+
 
 //:: is namespace alias operator
 /* Example usage:

@@ -137,3 +137,6 @@ C:\Users\mamma\Finance\api\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Secur
 C:\Users\mamma\Finance\api\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 C:\Users\mamma\Finance\api\obj\Debug\net8.0\api.sourcelink.json
 C:\Users\mamma\Finance\api\bin\Debug\net8.0\AutoMapper.dll
+C:\Users\mamma\Finance\api\bin\Debug\net8.0\FluentValidation.dll
+C:\Users\mamma\Finance\api\bin\Debug\net8.0\FluentValidation.AspNetCore.dll
+C:\Users\mamma\Finance\api\bin\Debug\net8.0\FluentValidation.DependencyInjectionExtensions.dll
