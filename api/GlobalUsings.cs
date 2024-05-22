@@ -9,8 +9,8 @@ global using api.Endpoints;
 global using api.ServiceRegistration;
 global using api.Services;
 global using api.Models.AbstractModel;
-global using api.Helper;
-global using api.Helper.AbstractConverter;
+global using api.Helpers;
+global using api.Helpers.AbstractConverter;
 global using api.Services.UnitOfWork;
 
 global using api.Dtos.Stock.Request;

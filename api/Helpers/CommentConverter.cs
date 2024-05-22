@@ -1,4 +1,4 @@
-﻿namespace api.Helper;
+﻿namespace api.Helpers;
 
 public class CommentConverter : IConverter<Comment, UpdateCommentDto>
 {

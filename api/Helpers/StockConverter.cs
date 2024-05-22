@@ -1,4 +1,4 @@
-﻿namespace api.Helper;
+﻿namespace api.Helpers;
 
 public  class StockConverter:IConverter<Stock,UpdateStockDto>
 {
