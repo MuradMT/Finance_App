@@ -13,4 +13,9 @@ public class StockRepository(ApplicationDbContext _context): BaseRepository<Stoc
     {
         return _context.Stocks.Include(p=>p.Comments).FirstOrDefaultAsync(p=>p.Id==id);
     }
+
+    public async Task<bool> StockExists(int id)
+    {
+        return await _context.Stocks.AnyAsync(p=>p.Id==id);
+    }
 }

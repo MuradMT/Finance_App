@@ -13,7 +13,12 @@ public class StockService
 
     public async Task<StockDto?> GetWithCommentsByIdAsync(int id)
     {
-        var stock = _repository.GetWithCommentsByIdAsync(id);
-        return stock is not null? _mapper.Map<StockDto>(stock) : throw new NotFoundException(Messages<Stock>.NotFound);
+        var stock =await _repository.GetWithCommentsByIdAsync(id);
+        return stock is not null? _mapper.Map<StockDto>(stock) : throw new NotFoundException(Messages<Stock>.Not_Found);
+    }
+
+    public async Task<bool> StockExists(int id)
+    {
+        return await _repository.StockExists(id);
     }
 }

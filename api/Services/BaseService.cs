@@ -23,7 +23,7 @@ public class BaseService<TEntity,TContext, TResponseDto,TCreateRequestDto, TUpda
         var entity = await _unitofwork.Repository.GetByIdAsync(id);
         if (entity is null)
         {
-            throw new NotFoundException(Messages<TEntity>.NotFound);
+            throw new NotFoundException(Messages<TEntity>.Not_Found);
         }
         await _unitofwork.Repository.DeleteAsync(entity);
     }
@@ -37,7 +37,7 @@ public class BaseService<TEntity,TContext, TResponseDto,TCreateRequestDto, TUpda
     public async Task<TResponseDto?> GetByIdAsync(int id)
     {
         var entity = await _unitofwork.Repository.GetByIdAsync(id);
-        return entity is not null ? _mapper.Map<TResponseDto>(entity) : throw new NotFoundException(Messages<TEntity>.NotFound);
+        return entity is not null ? _mapper.Map<TResponseDto>(entity) : throw new NotFoundException(Messages<TEntity>.Not_Found);
     }
 
     public async Task<TResponseDto> UpdateAsync(int id, TUpdateRequestDto updateDto)
@@ -45,7 +45,7 @@ public class BaseService<TEntity,TContext, TResponseDto,TCreateRequestDto, TUpda
         var entity = await _unitofwork.Repository.GetByIdAsync(id);
         if (entity is null)
         {
-            throw new NotFoundException(Messages<TEntity>.NotFound);
+            throw new NotFoundException(Messages<TEntity>.Not_Found);
         }
         _converter.Convert(entity, updateDto);
         await _unitofwork.Repository.UpdateAsync(entity);

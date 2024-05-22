@@ -54,12 +54,16 @@ public static class CommentEndpoint
         #endregion
 
         #region Create Comment
-        routes.MapPost("/api/comment", async Task<IResult> ([FromBody] CreateCommentDto commentDto,
-        ICommentService _service) =>
+        //One to Many Create Example
+        routes.MapPost("/api/comment/{stockId}", async Task<IResult> ([FromRoute]int stockId,[FromBody] CreateCommentDto commentDto,
+        ICommentService _service,IStockService _stockService) =>
         {
             try
             {
-                var comment = await _service.CreateAsync(commentDto);
+                if (!await _stockService.StockExists(stockId)){
+                    return TypedResults.BadRequest(Messages<Stock>.Does_Not_Exist);
+                }
+                var comment = await _service.CreateWithStockIdAsync(commentDto, stockId);
                 return TypedResults.CreatedAtRoute(comment, "getComment", new { id = comment.Id });
             }
             catch (Exception e)
@@ -69,7 +73,8 @@ public static class CommentEndpoint
         })
         .WithName("addComment")
         .WithTags("Comments")
-        .Produces<CommentDto>(StatusCodes.Status201Created);
+        .Produces<CommentDto>(StatusCodes.Status201Created)
+        .Produces<string>(StatusCodes.Status400BadRequest);
         #endregion
 
         #region  Update Comment
