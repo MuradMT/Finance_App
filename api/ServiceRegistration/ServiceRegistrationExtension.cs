@@ -1,6 +1,4 @@
-﻿
-
-namespace api.ServiceRegistration;
+﻿namespace api.ServiceRegistration;
 
 // File: ServiceCollectionExtensions.cs
 public static class ServiceRegistrationExtension
@@ -16,11 +14,10 @@ public static class ServiceRegistrationExtension
 
             opt.AddMaps(Assembly.GetExecutingAssembly());
         });
+        services.AddScoped<IUnitOfWork<Comment, ApplicationDbContext>, UnitOfWork<Comment, ApplicationDbContext>>();
+        services.AddScoped<IUnitOfWork<Stock, ApplicationDbContext>, UnitOfWork<Stock, ApplicationDbContext>>();
         services.AddScoped<IStockService, StockService>(); 
         services.AddScoped<ICommentService, CommentService>(); 
-        services.AddScoped<IStockRepository, StockRepository>();
-        services.AddScoped<ICommentRepository, CommentRepository>();
-
         services.AddScoped<IConverter<Stock,UpdateStockDto>, StockConverter>();
         services.AddScoped<IConverter<Comment,UpdateCommentDto>,CommentConverter>();
     }

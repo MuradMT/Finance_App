@@ -1,9 +1,6 @@
-﻿
+﻿namespace api.Services;
 
-
-namespace api.Services;
-
-public class CommentService(ICommentRepository _repository,IMapper _mapper,IConverter<Comment,UpdateCommentDto> _converter)
-:BaseService<CreateCommentDto,CommentDto,Comment,UpdateCommentDto>(_repository,_mapper,_converter),ICommentService
+public class CommentService(IUnitOfWork<Comment,ApplicationDbContext> _unitofwork,IMapper _mapper,IConverter<Comment,UpdateCommentDto> _converter)
+:BaseService<Comment,ApplicationDbContext,CommentDto,CreateCommentDto,UpdateCommentDto>(_unitofwork,_mapper,_converter),ICommentService
 {
 }

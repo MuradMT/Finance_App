@@ -1,6 +1,6 @@
 ﻿namespace api.Interfaces.Repositories;
 
-public interface IRepository<T> where T : class
+public interface IRepository<T> where T : class,IEntity
 {
     Task<List<T>> GetAllAsync();
     Task DeleteAsync(T entity);
