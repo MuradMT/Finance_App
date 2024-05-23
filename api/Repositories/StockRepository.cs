@@ -15,6 +15,24 @@ public class StockRepository(ApplicationDbContext _context) : BaseRepository<Sto
         {
             stocks = stocks.Where(p => p.Symbol.Contains(stockQuery.Symbol));
         }
+        if (!string.IsNullOrWhiteSpace(stockQuery.SortBy))
+        {
+            #region StringComparison.OrdinalIgnoreCase 
+            //For unicode comparison
+            //StringComparison.OrdinalIgnoreCase is an enumeration value that specifies 
+            //the type of comparison to perform. 
+            //In this case, it indicates that the comparison should be case-insensitive 
+            //and based on the ordinal value of the characters.
+            #endregion
+            if (stockQuery.SortBy.Equals("Id", StringComparison.OrdinalIgnoreCase))
+            {
+                stocks = stockQuery.isDescending ? stocks.OrderByDescending(p => p.Id) : stocks.OrderBy(p => p.Id);
+            }
+            if (stockQuery.SortBy.Equals("Symbol", StringComparison.OrdinalIgnoreCase))
+            {
+                stocks = stockQuery.isDescending ? stocks.OrderByDescending(p => p.Symbol) : stocks.OrderBy(p => p.Symbol);
+            }
+        }
         return await stocks.ToListAsync();
     }
 

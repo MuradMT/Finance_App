@@ -20,12 +20,17 @@ public static class StockEndpoints
         var routes = app.MapGroup("/api/stocks").WithOpenApi();
         #region Get All Stocks
 
-        routes.MapGet("", async Task<IResult> ([FromQuery] string? symbol,[FromQuery]string? companyName,IStockService _service) =>
+        routes.MapGet("", async Task<IResult> (
+             [FromQuery] string? symbol,
+             [FromQuery] string? companyName,
+             [FromQuery] string? sortBy,
+             [FromQuery] bool isDescending,
+             IStockService _service) =>
         {
             try
-            {    
-                
-                var stocks = await _service.GetWithCommentsAllAsync(new StockQuery(symbol,companyName));
+            {
+
+                var stocks = await _service.GetWithCommentsAllAsync(new StockQuery(symbol, companyName, sortBy, isDescending));
                 return TypedResults.Ok(stocks);
 
             }
@@ -38,9 +43,9 @@ public static class StockEndpoints
         .WithTags("Stocks")
         .WithSummary(Messages<Stock>.GetAll)
         .Produces<List<StockDto>>(StatusCodes.Status200OK);
- 
+
         #endregion
-        
+
         #region Get Stock By ID
 
         routes.MapGet("/{id:int}", async Task<IResult> ([FromRoute] int id,
@@ -66,9 +71,9 @@ public static class StockEndpoints
         .WithSummary(Messages<Stock>.GetById)
         .Produces<StockDto>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
-         
+
         #endregion
-        
+
         #region Create Stock
 
         routes.MapPost("", async Task<IResult> ([FromBody] CreateStockDto stockDto,
@@ -90,7 +95,7 @@ public static class StockEndpoints
         .WithRequestValidation<CreateStockDto>()
         .Produces<StockDto>(StatusCodes.Status201Created)
         .Produces(StatusCodes.Status400BadRequest);
-         
+
         #endregion
 
         #region Update Stock
@@ -101,7 +106,7 @@ public static class StockEndpoints
             try
             {
                 var stock = await _services.UpdateAsync(id, stockDto);
-                
+
                 return TypedResults.Ok(stock);
             }
             catch (NotFoundException e)
@@ -121,7 +126,7 @@ public static class StockEndpoints
         .Produces<StockDto>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status400BadRequest)
         .Produces(StatusCodes.Status404NotFound);
-        
+
         #endregion
 
         #region Delete Stock
@@ -147,8 +152,8 @@ public static class StockEndpoints
         .WithSummary(Messages<Stock>.Delete)
         .Produces(StatusCodes.Status204NoContent)
         .Produces(StatusCodes.Status404NotFound);
-        
-         #endregion
+
+        #endregion
     }
-       
+
 }
