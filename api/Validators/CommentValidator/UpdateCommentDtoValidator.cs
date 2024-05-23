@@ -4,8 +4,12 @@ public class UpdateCommentDtoValidator : AbstractValidator<UpdateCommentDto>
 {
     public UpdateCommentDtoValidator()
     {
-        RuleFor(x => x.Content).NotEmpty().WithMessage("Content is required");
-        RuleFor(x => x.Title).NotEmpty().WithMessage("Title is required");
-        RuleFor(x => x.Content).MinimumLength(3).WithMessage("Content length must be at least 3 characters");
+        RuleFor(x => x.Content).NotEmpty().WithMessage(ConstantMessages.Content_Not_Empty);
+        RuleFor(x => x.Content).MinimumLength(5).WithMessage(ConstantMessages.Content_Min_Length);
+        RuleFor(x => x.Content).MaximumLength(280).WithMessage(ConstantMessages.Content_Max_Length);
+
+        RuleFor(x => x.Title).NotEmpty().WithMessage(ConstantMessages.Title_Not_Empty);
+        RuleFor(x => x.Title).MinimumLength(5).WithMessage(ConstantMessages.Title_Min_Length);
+        RuleFor(x => x.Title).MaximumLength(280).WithMessage(ConstantMessages.Title_Max_Length);
     }
 }

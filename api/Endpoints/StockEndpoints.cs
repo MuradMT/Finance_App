@@ -33,7 +33,7 @@ public static class StockEndpoints
         })
         .WithName("getAllStocks")
         .WithTags("Stocks")
-        .WithSummary(ConstantMessages.GetAllStocks)
+        .WithSummary(Messages<Stock>.GetAll)
         .Produces<List<StockDto>>(StatusCodes.Status200OK);
  
         #endregion
@@ -60,7 +60,7 @@ public static class StockEndpoints
         })
         .WithName("getStock")
         .WithTags("Stocks")
-        .WithSummary(ConstantMessages.GetStockById)
+        .WithSummary(Messages<Stock>.GetById)
         .Produces<StockDto>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
          
@@ -83,7 +83,7 @@ public static class StockEndpoints
         })
         .WithName("addStock")
         .WithTags("Stocks")
-        .WithSummary(ConstantMessages.CreateStock)
+        .WithSummary(Messages<Stock>.Create)
         .WithRequestValidation<CreateStockDto>()
         .Produces<StockDto>(StatusCodes.Status201Created)
         .Produces(StatusCodes.Status400BadRequest);
@@ -113,7 +113,7 @@ public static class StockEndpoints
         })
         .WithName("updateStock")
         .WithTags("Stocks")
-        .WithSummary(ConstantMessages.UpdateStock)
+        .WithSummary(Messages<Stock>.Update)
         .WithRequestValidation<UpdateStockDto>()
         .Produces<StockDto>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status400BadRequest)
@@ -141,7 +141,7 @@ public static class StockEndpoints
         })
         .WithName("deleteStock")
         .WithTags("Stocks")
-        .WithSummary(ConstantMessages.DeleteStock)
+        .WithSummary(Messages<Stock>.Delete)
         .Produces(StatusCodes.Status204NoContent)
         .Produces(StatusCodes.Status404NotFound);
         

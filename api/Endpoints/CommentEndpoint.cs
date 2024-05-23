@@ -25,7 +25,7 @@ public static class CommentEndpoint
         })
         .WithName("getAllComments")
         .WithTags("Comments")
-        .WithSummary(ConstantMessages.GetAllComments)
+        .WithSummary(Messages<Comment>.GetAll)
         .Produces<List<CommentDto>>(StatusCodes.Status200OK);
 
         #endregion
@@ -52,7 +52,7 @@ public static class CommentEndpoint
         })
         .WithName("getComment")
         .WithTags("Comments")
-        .WithSummary(ConstantMessages.GetCommentById)
+        .WithSummary(Messages<Comment>.GetById)
         .Produces<CommentDto>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
 
@@ -78,7 +78,7 @@ public static class CommentEndpoint
         })
         .WithName("addComment")
         .WithTags("Comments")
-        .WithSummary(ConstantMessages.CreateComment)
+        .WithSummary(Messages<Comment>.Create)
         .WithRequestValidation<CreateCommentDto>()
         .Produces<CommentDto>(StatusCodes.Status201Created)
         .Produces(StatusCodes.Status400BadRequest);
@@ -107,7 +107,7 @@ public static class CommentEndpoint
       })
       .WithName("updateComment")
       .WithTags("Comments")
-      .WithSummary(ConstantMessages.UpdateComment)
+      .WithSummary(Messages<Comment>.Update)
       .WithRequestValidation<UpdateCommentDto>()
       .Produces<CommentDto>(StatusCodes.Status200OK)
       .Produces(StatusCodes.Status400BadRequest)
@@ -133,7 +133,7 @@ public static class CommentEndpoint
         })
         .WithName("deleteComment")
         .WithTags("Comments")
-        .WithSummary(ConstantMessages.DeleteComment)
+        .WithSummary(Messages<Comment>.Delete)
         .Produces(StatusCodes.Status204NoContent)
         .Produces(StatusCodes.Status404NotFound);
         #endregion
