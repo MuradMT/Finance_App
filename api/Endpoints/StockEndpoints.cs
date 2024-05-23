@@ -24,13 +24,15 @@ public static class StockEndpoints
              [FromQuery] string? symbol,
              [FromQuery] string? companyName,
              [FromQuery] string? sortBy,
-             [FromQuery] bool isDescending,
+             [FromQuery] bool? isDescending,
+             [FromQuery] int? page,
+             [FromQuery] int? pageSize,
              IStockService _service) =>
         {
             try
             {
 
-                var stocks = await _service.GetWithCommentsAllAsync(new StockQuery(symbol, companyName, sortBy, isDescending));
+                var stocks = await _service.GetWithCommentsAllAsync(new StockQuery(symbol, companyName, sortBy, isDescending??false,page??1,pageSize??10));
                 return TypedResults.Ok(stocks);
 
             }

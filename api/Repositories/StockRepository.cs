@@ -1,4 +1,5 @@
 ﻿
+
 namespace api.Repositories;
 
 public class StockRepository(ApplicationDbContext _context) : BaseRepository<Stock, ApplicationDbContext>(_context), IStockRepository
@@ -26,14 +27,15 @@ public class StockRepository(ApplicationDbContext _context) : BaseRepository<Sto
             #endregion
             if (stockQuery.SortBy.Equals("Id", StringComparison.OrdinalIgnoreCase))
             {
-                stocks = stockQuery.isDescending ? stocks.OrderByDescending(p => p.Id) : stocks.OrderBy(p => p.Id);
+                stocks = stockQuery.isDescending is true? stocks.OrderByDescending(p => p.Id) : stocks.OrderBy(p => p.Id);
             }
             if (stockQuery.SortBy.Equals("Symbol", StringComparison.OrdinalIgnoreCase))
             {
-                stocks = stockQuery.isDescending ? stocks.OrderByDescending(p => p.Symbol) : stocks.OrderBy(p => p.Symbol);
+                stocks = stockQuery.isDescending is true? stocks.OrderByDescending(p => p.Symbol) : stocks.OrderBy(p => p.Symbol);
             }
         }
-        return await stocks.ToListAsync();
+        var skip= (stockQuery.Page - 1)* stockQuery.PageSize;
+        return await stocks.Skip(skip).Take(stockQuery.PageSize).ToListAsync();
     }
 
     public Task<Stock?> GetWithCommentsByIdAsync(int id)

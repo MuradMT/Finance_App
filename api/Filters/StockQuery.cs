@@ -9,8 +9,11 @@ public class StockQuery
     public string? CompanyName { get; set; } = null;
 
     public string? SortBy { get; set; } = null;
-    public bool isDescending { get; set; } = false;
+    public bool isDescending { get; set; }
 
-    public StockQuery(string symbol, string companyName,string sortBy,bool _isDescending)=>
-    (Symbol, CompanyName,SortBy,isDescending)=(symbol,companyName,sortBy,_isDescending);
+    public int Page { get; set; }
+    public int PageSize { get; set; }
+
+    public StockQuery(string symbol, string companyName,string sortBy,bool _isDescending,int page,int pageSize)=>
+    (Symbol, CompanyName,SortBy,isDescending,Page,PageSize)=(symbol,companyName,sortBy,_isDescending,page,pageSize);
 }
