@@ -9,11 +9,11 @@ public class StockRepository(ApplicationDbContext _context) : BaseRepository<Sto
         var stocks = _context.Stocks.Include(p => p.Comments).AsQueryable();
         if (!string.IsNullOrWhiteSpace(stockQuery.CompanyName))
         {
-            stocks = stocks.Where(p => p.CompanyName == stockQuery.CompanyName);
+            stocks = stocks.Where(p => p.CompanyName.Contains(stockQuery.CompanyName));
         }
         if (!string.IsNullOrWhiteSpace(stockQuery.Symbol))
         {
-            stocks = stocks.Where(p => p.Symbol == stockQuery.Symbol);
+            stocks = stocks.Where(p => p.Symbol.Contains(stockQuery.Symbol));
         }
         return await stocks.ToListAsync();
     }
