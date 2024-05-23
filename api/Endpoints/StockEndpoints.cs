@@ -24,8 +24,8 @@ public static class StockEndpoints
         {
             try
             {    
-                var stockQuery=new StockQuery(symbol,companyName);
-                var stocks = await _service.GetWithCommentsAllAsync(stockQuery);
+                
+                var stocks = await _service.GetWithCommentsAllAsync(new StockQuery(symbol,companyName));
                 return TypedResults.Ok(stocks);
 
             }
