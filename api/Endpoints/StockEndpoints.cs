@@ -1,4 +1,6 @@
-﻿namespace api.Endpoints;
+﻿
+
+namespace api.Endpoints;
 
 #region History of async/await
 //These keywords firstly introduced by c#
@@ -18,11 +20,12 @@ public static class StockEndpoints
         var routes = app.MapGroup("/api/stocks").WithOpenApi();
         #region Get All Stocks
 
-        routes.MapGet("", async Task<IResult> (IStockService _service) =>
+        routes.MapGet("", async Task<IResult> ([FromQuery] string? symbol,[FromQuery]string? companyName,IStockService _service) =>
         {
             try
-            {
-                var stocks = await _service.GetWithCommentsAllAsync();
+            {    
+                var stockQuery=new StockQuery(symbol,companyName);
+                var stocks = await _service.GetWithCommentsAllAsync(stockQuery);
                 return TypedResults.Ok(stocks);
 
             }

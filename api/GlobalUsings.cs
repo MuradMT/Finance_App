@@ -13,6 +13,7 @@ global using api.Helpers;
 global using api.Helpers.AbstractConverter;
 global using api.Services.UnitOfWork;
 global using api.Validators.ValidationConfiguration;
+global using api.Filters;
 
 global using api.Dtos.Stock.Request;
 global using api.Dtos.Stock.Response;

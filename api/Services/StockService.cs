@@ -5,9 +5,9 @@ public class StockService
 (IUnitOfWork<Stock, ApplicationDbContext> _unitofwork, IMapper _mapper, IConverter<Stock, UpdateStockDto> _converter,IStockRepository _repository)
 : BaseService<Stock, ApplicationDbContext, StockDto, CreateStockDto, UpdateStockDto>(_unitofwork, _mapper, _converter), IStockService
 {
-    public async Task<List<StockDto>> GetWithCommentsAllAsync()
+    public async Task<List<StockDto>> GetWithCommentsAllAsync(StockQuery stockQuery)
     {
-        var stocks= await _repository.GetAllWithCommentsAsync();
+        var stocks= await _repository.GetAllWithCommentsAsync(stockQuery);
         return _mapper.Map<List<StockDto>>(stocks);
     }
 

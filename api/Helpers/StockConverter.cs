@@ -1,6 +1,6 @@
 ﻿namespace api.Helpers;
 
-public  class StockConverter:IConverter<Stock,UpdateStockDto>
+public  record StockConverter:IConverter<Stock,UpdateStockDto>
 {
    public  void Convert(Stock entity,UpdateStockDto dto){
     
