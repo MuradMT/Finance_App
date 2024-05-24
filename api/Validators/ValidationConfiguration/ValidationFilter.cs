@@ -20,7 +20,7 @@ public class ValidationFilter<TRequest> : IEndpointFilter
         if (!result.IsValid)
         {
             //return TypedResults.ValidationProblem(result.ToDictionary());
-             return TypedResults.BadRequest(result.Errors.Select(e=>e.ErrorMessage).First());
+             return TypedResults.BadRequest(new Response(StatusCodes.Status400BadRequest,result.Errors.Select(e=>e.ErrorMessage).First()));
         }
 
         return await next(context);

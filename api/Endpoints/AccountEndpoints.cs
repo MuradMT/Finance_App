@@ -1,6 +1,4 @@
-﻿
-
-namespace api.Endpoints;
+﻿namespace api.Endpoints;
 
 public static class AccountEndpoints
 {
@@ -11,10 +9,10 @@ public static class AccountEndpoints
          routes.MapPost("/register",async Task<IResult> ([FromBody]RegisterDto registerDto,IAccountService _service)=>{
             try{
                var result=await _service.RegisterAsync(registerDto);
-               return TypedResults.Ok(result);
+               return TypedResults.Ok(new Response(StatusCodes.Status200OK,result));
             }
             catch(UserExistsException ex){
-                return TypedResults.BadRequest(ex.Message);
+                return TypedResults.BadRequest(new Response(StatusCodes.Status400BadRequest,ex.Message));
             }
             catch(Exception ex){
                 return TypedResults.Problem(ex.Message,statusCode:500);
@@ -24,8 +22,8 @@ public static class AccountEndpoints
          .WithTags("Account")
          .WithSummary(ConstantMessages.Register)
          .WithRequestValidation<RegisterDto>()
-         .Produces(StatusCodes.Status200OK)
-         .Produces(StatusCodes.Status400BadRequest)
+         .Produces<Response>(StatusCodes.Status200OK)
+         .Produces<Response>(StatusCodes.Status400BadRequest)
          .Produces(StatusCodes.Status500InternalServerError);
         #endregion
     }

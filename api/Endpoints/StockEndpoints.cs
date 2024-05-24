@@ -1,5 +1,7 @@
 ﻿
 
+using api.Endpoints.APIResponse;
+
 namespace api.Endpoints;
 
 #region History of async/await
@@ -31,20 +33,19 @@ public static class StockEndpoints
         {
             try
             {
-
                 var stocks = await _service.GetWithCommentsAllAsync(new StockQuery(symbol, companyName, sortBy, isDescending??false,page??1,pageSize??10));
-                return TypedResults.Ok(stocks);
+                return TypedResults.Ok(new DataResponse<List<StockDto>>(StatusCodes.Status200OK,Messages<Stock>.GetAll, stocks));
 
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return TypedResults.Problem(e.Message, statusCode: 500);
+                return TypedResults.Problem(ex.Message,statusCode:500);;
             }
         })
         .WithName("getAllStocks")
         .WithTags("Stocks")
         .WithSummary(Messages<Stock>.GetAll)
-        .Produces<List<StockDto>>(StatusCodes.Status200OK)
+        .Produces<DataResponse<List<StockDto>>>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status500InternalServerError);
 
         #endregion
@@ -58,11 +59,11 @@ public static class StockEndpoints
             {
                 var stock = await _service.GetWithCommentsByIdAsync(id);
 
-                return TypedResults.Ok(stock);
+                return TypedResults.Ok(new DataResponse<StockDto>(StatusCodes.Status200OK,Messages<Stock>.GetById,stock));
             }
             catch (NotFoundException e)
             {
-                return TypedResults.NotFound(e.Message);
+                return TypedResults.NotFound(new Response(StatusCodes.Status404NotFound,e.Message));
             }
             catch (Exception e)
             {
@@ -72,8 +73,8 @@ public static class StockEndpoints
         .WithName("getStock")
         .WithTags("Stocks")
         .WithSummary(Messages<Stock>.GetById)
-        .Produces<StockDto>(StatusCodes.Status200OK)
-        .Produces(StatusCodes.Status404NotFound)
+        .Produces<DataResponse<StockDto>>(StatusCodes.Status200OK)
+        .Produces<Response>(StatusCodes.Status404NotFound)
         .Produces(StatusCodes.Status500InternalServerError);
 
         #endregion
@@ -86,7 +87,7 @@ public static class StockEndpoints
             try
             {
                 var stock = await _service.CreateAsync(stockDto);
-                return TypedResults.CreatedAtRoute(stock, "getStock", new { id = stock.Id });
+                return TypedResults.CreatedAtRoute(new DataResponse<StockDto>(StatusCodes.Status201Created,Messages<Stock>.Create,stock), "getStock", new { id = stock.Id });
             }
             catch (Exception e)
             {
@@ -97,8 +98,8 @@ public static class StockEndpoints
         .WithTags("Stocks")
         .WithSummary(Messages<Stock>.Create)
         .WithRequestValidation<CreateStockDto>()
-        .Produces<StockDto>(StatusCodes.Status201Created)
-        .Produces(StatusCodes.Status400BadRequest)
+        .Produces<DataResponse<StockDto>>(StatusCodes.Status201Created)
+        .Produces<Response>(StatusCodes.Status400BadRequest)
         .Produces(StatusCodes.Status500InternalServerError);
 
         #endregion
@@ -112,11 +113,11 @@ public static class StockEndpoints
             {
                 var stock = await _services.UpdateAsync(id, stockDto);
 
-                return TypedResults.Ok(stock);
+                return TypedResults.Ok(new DataResponse<StockDto>(StatusCodes.Status200OK,Messages<Stock>.Update,stock));
             }
             catch (NotFoundException e)
             {
-                return TypedResults.NotFound(e.Message);
+                return TypedResults.NotFound(new Response(StatusCodes.Status404NotFound,e.Message));
             }
             catch (Exception e)
             {
@@ -128,9 +129,9 @@ public static class StockEndpoints
         .WithTags("Stocks")
         .WithSummary(Messages<Stock>.Update)
         .WithRequestValidation<UpdateStockDto>()
-        .Produces<StockDto>(StatusCodes.Status200OK)
-        .Produces(StatusCodes.Status400BadRequest)
-        .Produces(StatusCodes.Status404NotFound)
+        .Produces<DataResponse<StockDto>>(StatusCodes.Status200OK)
+        .Produces<Response>(StatusCodes.Status400BadRequest)
+        .Produces<Response>(StatusCodes.Status404NotFound)
         .Produces(StatusCodes.Status500InternalServerError);
 
         #endregion
@@ -146,7 +147,7 @@ public static class StockEndpoints
             }
             catch (NotFoundException e)
             {
-                return TypedResults.NotFound(e.Message);
+                return TypedResults.NotFound(new Response(StatusCodes.Status404NotFound,e.Message));
             }
             catch (Exception e)
             {
@@ -157,7 +158,7 @@ public static class StockEndpoints
         .WithTags("Stocks")
         .WithSummary(Messages<Stock>.Delete)
         .Produces(StatusCodes.Status204NoContent)
-        .Produces(StatusCodes.Status404NotFound)
+        .Produces<Response>(StatusCodes.Status404NotFound)
         .Produces(StatusCodes.Status500InternalServerError);
 
         #endregion

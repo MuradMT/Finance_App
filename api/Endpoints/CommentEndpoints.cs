@@ -1,5 +1,7 @@
 ﻿
 
+using api.Endpoints.APIResponse;
+
 namespace api.Endpoints;
 
 public static class CommentEndpoints
@@ -16,7 +18,7 @@ public static class CommentEndpoints
             try
             {
                 var comments = await _service.GetAllAsync();
-                return TypedResults.Ok(comments);
+                return TypedResults.Ok(new DataResponse<List<CommentDto>>(StatusCodes.Status200OK,Messages<Comment>.GetAll,comments));
             }
             catch (Exception e)
             {
@@ -26,7 +28,7 @@ public static class CommentEndpoints
         .WithName("getAllComments")
         .WithTags("Comments")
         .WithSummary(Messages<Comment>.GetAll)
-        .Produces<List<CommentDto>>(StatusCodes.Status200OK)
+        .Produces<DataResponse<List<CommentDto>>>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status500InternalServerError);
 
         #endregion
@@ -40,11 +42,11 @@ public static class CommentEndpoints
             {
                 var comment = await _service.GetByIdAsync(id);
 
-                return TypedResults.Ok(comment);
+                return TypedResults.Ok(new DataResponse<CommentDto>(StatusCodes.Status200OK,Messages<Comment>.GetById,comment));
             }
             catch (NotFoundException e)
             {
-                return TypedResults.NotFound(e.Message);
+                return TypedResults.NotFound(new Response(StatusCodes.Status404NotFound,e.Message));
             }
             catch (Exception e)
             {
@@ -54,8 +56,8 @@ public static class CommentEndpoints
         .WithName("getComment")
         .WithTags("Comments")
         .WithSummary(Messages<Comment>.GetById)
-        .Produces<CommentDto>(StatusCodes.Status200OK)
-        .Produces(StatusCodes.Status404NotFound)
+        .Produces<DataResponse<CommentDto>>(StatusCodes.Status200OK)
+        .Produces<Response>(StatusCodes.Status404NotFound)
         .Produces(StatusCodes.Status500InternalServerError);
 
         #endregion
@@ -68,10 +70,10 @@ public static class CommentEndpoints
             try
             {
                 if (!await _stockService.StockExists(stockId)){
-                    return TypedResults.BadRequest(Messages<Stock>.Does_Not_Exist);
+                    return TypedResults.BadRequest(new Response(StatusCodes.Status400BadRequest,Messages<Stock>.Does_Not_Exist));
                 }
                 var comment = await _service.CreateWithStockIdAsync(commentDto, stockId);
-                return TypedResults.CreatedAtRoute(comment, "getComment", new { id = comment.Id });
+                return TypedResults.CreatedAtRoute(new DataResponse<CommentDto>(StatusCodes.Status201Created,Messages<Comment>.Create,comment), "getComment", new { id = comment.Id });
             }
             catch (Exception e)
             {
@@ -82,8 +84,8 @@ public static class CommentEndpoints
         .WithTags("Comments")
         .WithSummary(Messages<Comment>.Create)
         .WithRequestValidation<CreateCommentDto>()
-        .Produces<CommentDto>(StatusCodes.Status201Created)
-        .Produces(StatusCodes.Status400BadRequest)
+        .Produces<DataResponse<CommentDto>>(StatusCodes.Status201Created)
+        .Produces<Response>(StatusCodes.Status400BadRequest)
         .Produces(StatusCodes.Status500InternalServerError);
         #endregion
 
@@ -96,11 +98,11 @@ public static class CommentEndpoints
           {
               var comment = await _services.UpdateAsync(id, commentDto);
 
-              return TypedResults.Ok(comment);
+              return TypedResults.Ok(new DataResponse<CommentDto>(StatusCodes.Status200OK,Messages<Comment>.Update,comment));
           }
           catch (NotFoundException e)
           {
-              return TypedResults.NotFound(e.Message);
+              return TypedResults.NotFound(new Response(StatusCodes.Status404NotFound,e.Message));
           }
           catch (Exception e)
           {
@@ -112,9 +114,9 @@ public static class CommentEndpoints
       .WithTags("Comments")
       .WithSummary(Messages<Comment>.Update)
       .WithRequestValidation<UpdateCommentDto>()
-      .Produces<CommentDto>(StatusCodes.Status200OK)
-      .Produces(StatusCodes.Status400BadRequest)
-      .Produces(StatusCodes.Status404NotFound)
+      .Produces<DataResponse<CommentDto>>(StatusCodes.Status200OK)
+      .Produces<Response>(StatusCodes.Status400BadRequest)
+      .Produces<Response>(StatusCodes.Status404NotFound)
       .Produces(StatusCodes.Status500InternalServerError);
         #endregion
 
@@ -128,7 +130,7 @@ public static class CommentEndpoints
             }
             catch (NotFoundException e)
             {
-                return TypedResults.NotFound(e.Message);
+                return TypedResults.NotFound(new Response(StatusCodes.Status404NotFound,e.Message));
             }
             catch (Exception e)
             {
@@ -139,7 +141,7 @@ public static class CommentEndpoints
         .WithTags("Comments")
         .WithSummary(Messages<Comment>.Delete)
         .Produces(StatusCodes.Status204NoContent)
-        .Produces(StatusCodes.Status404NotFound)
+        .Produces<Response>(StatusCodes.Status404NotFound)
         .Produces(StatusCodes.Status500InternalServerError);
         #endregion
     }
