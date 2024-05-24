@@ -1,6 +1,8 @@
-﻿namespace api.Data;
+﻿
 
-public class ApplicationDbContext:DbContext
+namespace api.Data;
+
+public class ApplicationDbContext:IdentityDbContext<AppUser>
 {
    public DbSet<Stock> Stocks { get; set; }
    public DbSet<Comment> Comments { get; set; }
