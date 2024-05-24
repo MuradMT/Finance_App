@@ -33,13 +33,13 @@ public static class StockEndpoints
         {
             try
             {
-                var stocks = await _service.GetWithCommentsAllAsync(new StockQuery(symbol, companyName, sortBy, isDescending??false,page??1,pageSize??10));
-                return TypedResults.Ok(new DataResponse<List<StockDto>>(StatusCodes.Status200OK,Messages<Stock>.GetAll, stocks));
+                var stocks = await _service.GetWithCommentsAllAsync(new StockQuery(symbol, companyName, sortBy, isDescending ?? false, page ?? 1, pageSize ?? 10));
+                return TypedResults.Ok(new DataResponse<List<StockDto>>(StatusCodes.Status200OK, Messages<Stock>.GetAll, stocks));
 
             }
             catch (Exception ex)
             {
-                return TypedResults.Problem(ex.Message,statusCode:500);;
+                return TypedResults.Problem(ex.Message, statusCode: 500); ;
             }
         })
         .WithName("getAllStocks")
@@ -59,11 +59,11 @@ public static class StockEndpoints
             {
                 var stock = await _service.GetWithCommentsByIdAsync(id);
 
-                return TypedResults.Ok(new DataResponse<StockDto>(StatusCodes.Status200OK,Messages<Stock>.GetById,stock));
+                return TypedResults.Ok(new DataResponse<StockDto>(StatusCodes.Status200OK, Messages<Stock>.GetById, stock));
             }
             catch (NotFoundException e)
             {
-                return TypedResults.NotFound(new Response(StatusCodes.Status404NotFound,e.Message));
+                return TypedResults.NotFound(new Response(StatusCodes.Status404NotFound, e.Message));
             }
             catch (Exception e)
             {
@@ -87,7 +87,7 @@ public static class StockEndpoints
             try
             {
                 var stock = await _service.CreateAsync(stockDto);
-                return TypedResults.CreatedAtRoute(new DataResponse<StockDto>(StatusCodes.Status201Created,Messages<Stock>.Create,stock), "getStock", new { id = stock.Id });
+                return TypedResults.CreatedAtRoute(new DataResponse<StockDto>(StatusCodes.Status201Created, Messages<Stock>.Create, stock), "getStock", new { id = stock.Id });
             }
             catch (Exception e)
             {
@@ -113,11 +113,11 @@ public static class StockEndpoints
             {
                 var stock = await _services.UpdateAsync(id, stockDto);
 
-                return TypedResults.Ok(new DataResponse<StockDto>(StatusCodes.Status200OK,Messages<Stock>.Update,stock));
+                return TypedResults.Ok(new DataResponse<StockDto>(StatusCodes.Status200OK, Messages<Stock>.Update, stock));
             }
             catch (NotFoundException e)
             {
-                return TypedResults.NotFound(new Response(StatusCodes.Status404NotFound,e.Message));
+                return TypedResults.NotFound(new Response(StatusCodes.Status404NotFound, e.Message));
             }
             catch (Exception e)
             {
@@ -143,11 +143,12 @@ public static class StockEndpoints
             try
             {
                 await _service.DeleteAsync(id);
-                return TypedResults.NoContent();
+                //return TypedResults.NoContent();
+                return TypedResults.Ok(new Response(StatusCodes.Status200OK, Messages<Stock>.Delete));
             }
             catch (NotFoundException e)
             {
-                return TypedResults.NotFound(new Response(StatusCodes.Status404NotFound,e.Message));
+                return TypedResults.NotFound(new Response(StatusCodes.Status404NotFound, e.Message));
             }
             catch (Exception e)
             {
@@ -157,7 +158,8 @@ public static class StockEndpoints
         .WithName("deleteStock")
         .WithTags("Stocks")
         .WithSummary(Messages<Stock>.Delete)
-        .Produces(StatusCodes.Status204NoContent)
+        //.Produces(StatusCodes.Status204NoContent)
+        .Produces<Response>(StatusCodes.Status200OK)
         .Produces<Response>(StatusCodes.Status404NotFound)
         .Produces(StatusCodes.Status500InternalServerError);
 

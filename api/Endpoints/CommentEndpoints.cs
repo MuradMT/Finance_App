@@ -126,7 +126,8 @@ public static class CommentEndpoints
             try
             {
                 await _service.DeleteAsync(id);
-                return TypedResults.NoContent();
+                //return TypedResults.NoContent();
+                return TypedResults.Ok(new Response(StatusCodes.Status200OK,Messages<Comment>.Delete));
             }
             catch (NotFoundException e)
             {
@@ -140,7 +141,8 @@ public static class CommentEndpoints
         .WithName("deleteComment")
         .WithTags("Comments")
         .WithSummary(Messages<Comment>.Delete)
-        .Produces(StatusCodes.Status204NoContent)
+        //.Produces(StatusCodes.Status204NoContent)
+        .Produces<Response>(StatusCodes.Status200OK)
         .Produces<Response>(StatusCodes.Status404NotFound)
         .Produces(StatusCodes.Status500InternalServerError);
         #endregion
