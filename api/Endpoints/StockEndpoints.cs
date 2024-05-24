@@ -1,6 +1,5 @@
 ﻿
 
-using api.Endpoints.APIResponse;
 
 namespace api.Endpoints;
 
@@ -46,7 +45,10 @@ public static class StockEndpoints
         .WithTags("Stocks")
         .WithSummary(Messages<Stock>.GetAll)
         .Produces<DataResponse<List<StockDto>>>(StatusCodes.Status200OK)
-        .Produces(StatusCodes.Status500InternalServerError);
+        .Produces(StatusCodes.Status401Unauthorized)
+        .Produces(StatusCodes.Status403Forbidden)
+        .Produces(StatusCodes.Status500InternalServerError)
+        .RequireAuthorization(new AuthorizeAttribute { Roles = "Admin" });
 
         #endregion
 
@@ -75,7 +77,9 @@ public static class StockEndpoints
         .WithSummary(Messages<Stock>.GetById)
         .Produces<DataResponse<StockDto>>(StatusCodes.Status200OK)
         .Produces<Response>(StatusCodes.Status404NotFound)
-        .Produces(StatusCodes.Status500InternalServerError);
+        .Produces(StatusCodes.Status500InternalServerError)
+        .Produces(StatusCodes.Status401Unauthorized)
+        .RequireAuthorization();
 
         #endregion
 
@@ -100,7 +104,9 @@ public static class StockEndpoints
         .WithRequestValidation<CreateStockDto>()
         .Produces<DataResponse<StockDto>>(StatusCodes.Status201Created)
         .Produces<Response>(StatusCodes.Status400BadRequest)
-        .Produces(StatusCodes.Status500InternalServerError);
+        .Produces(StatusCodes.Status401Unauthorized)
+        .Produces(StatusCodes.Status500InternalServerError)
+        .RequireAuthorization();
 
         #endregion
 
@@ -160,8 +166,10 @@ public static class StockEndpoints
         .WithSummary(Messages<Stock>.Delete)
         //.Produces(StatusCodes.Status204NoContent)
         .Produces<Response>(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status401Unauthorized)
         .Produces<Response>(StatusCodes.Status404NotFound)
-        .Produces(StatusCodes.Status500InternalServerError);
+        .Produces(StatusCodes.Status500InternalServerError)
+        .RequireAuthorization();
 
         #endregion
     }

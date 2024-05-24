@@ -7,7 +7,16 @@ public static class ConstantMessages
     public const string Login = "User Login";
     public const string User_Already_Exists="User Already Exists";
     public const string User_Created="User Created";
+    
+    public const string User_Invalid="User is Invalid";
+    public const string User_Not_Found_Password_Incorrect="User not found or Password is Incorrect";
+    public const string Login_Success="Successfully Logged In";
 
+    #endregion
+
+    #region Login Validation Messages
+    public const string Email_Or_UserName_Not_Empty = "Email or Username is required";
+    
     #endregion
 
     #region Register Validation Messages

@@ -29,7 +29,10 @@ public static class CommentEndpoints
         .WithTags("Comments")
         .WithSummary(Messages<Comment>.GetAll)
         .Produces<DataResponse<List<CommentDto>>>(StatusCodes.Status200OK)
-        .Produces(StatusCodes.Status500InternalServerError);
+        .Produces(StatusCodes.Status401Unauthorized)
+        .Produces(StatusCodes.Status403Forbidden)
+        .Produces(StatusCodes.Status500InternalServerError)
+        .RequireAuthorization(new AuthorizeAttribute{Policy = "EmailPolicy" });
 
         #endregion
 
@@ -57,8 +60,10 @@ public static class CommentEndpoints
         .WithTags("Comments")
         .WithSummary(Messages<Comment>.GetById)
         .Produces<DataResponse<CommentDto>>(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status401Unauthorized)
         .Produces<Response>(StatusCodes.Status404NotFound)
-        .Produces(StatusCodes.Status500InternalServerError);
+        .Produces(StatusCodes.Status500InternalServerError)
+        .RequireAuthorization();
 
         #endregion
 
@@ -85,8 +90,10 @@ public static class CommentEndpoints
         .WithSummary(Messages<Comment>.Create)
         .WithRequestValidation<CreateCommentDto>()
         .Produces<DataResponse<CommentDto>>(StatusCodes.Status201Created)
+        .Produces(StatusCodes.Status401Unauthorized)
         .Produces<Response>(StatusCodes.Status400BadRequest)
-        .Produces(StatusCodes.Status500InternalServerError);
+        .Produces(StatusCodes.Status500InternalServerError)
+        .RequireAuthorization();
         #endregion
 
         #region  Update Comment
@@ -115,9 +122,11 @@ public static class CommentEndpoints
       .WithSummary(Messages<Comment>.Update)
       .WithRequestValidation<UpdateCommentDto>()
       .Produces<DataResponse<CommentDto>>(StatusCodes.Status200OK)
+      .Produces(StatusCodes.Status401Unauthorized)
       .Produces<Response>(StatusCodes.Status400BadRequest)
       .Produces<Response>(StatusCodes.Status404NotFound)
-      .Produces(StatusCodes.Status500InternalServerError);
+      .Produces(StatusCodes.Status500InternalServerError)
+      .RequireAuthorization();
         #endregion
 
         #region Delete Comment
@@ -143,8 +152,10 @@ public static class CommentEndpoints
         .WithSummary(Messages<Comment>.Delete)
         //.Produces(StatusCodes.Status204NoContent)
         .Produces<Response>(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status401Unauthorized)
         .Produces<Response>(StatusCodes.Status404NotFound)
-        .Produces(StatusCodes.Status500InternalServerError);
+        .Produces(StatusCodes.Status500InternalServerError)
+        .RequireAuthorization();
         #endregion
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace api.Endpoints.APIResponses;
+﻿namespace api.Endpoints.APIResponse;
 
 public class Response
 {

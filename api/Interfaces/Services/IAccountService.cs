@@ -2,5 +2,6 @@
 
 public interface IAccountService
 {
-    Task<string> RegisterAsync(RegisterDto registerDto);
+    Task<NewUserDto> RegisterAsync(RegisterDto registerDto);
+    Task<TokenDto> LoginAsync(LoginDto loginDto);
 }

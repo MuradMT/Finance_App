@@ -2,7 +2,8 @@
 
 public interface IAccountRepository
 {
-    Task<string> RegisterAsync(RegisterDto registerDto);
+    Task<NewUserDto> RegisterAsync(RegisterDto registerDto);
+    Task<TokenDto> LoginAsync(LoginDto loginDto);
     Task<bool> EmailExistsAsync(string email);
     Task<bool> UsernameExistsAsync(string username);
 }

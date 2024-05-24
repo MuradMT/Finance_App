@@ -14,7 +14,11 @@ global using api.Helpers.AbstractConverter;
 global using api.Services.UnitOfWork;
 global using api.Validators.ValidationConfiguration;
 global using api.Filters;
-global using api.Endpoints.APIResponses;
+global using api.Endpoints.APIResponse;
+
+global using System.Text;
+global using System.Security.Claims;
+global using Microsoft.IdentityModel.Tokens;
 
 global using api.Dtos.Stock.Request;
 global using api.Dtos.Stock.Response;
@@ -26,6 +30,9 @@ global using api.Dtos.Account;
 global using api.Interfaces.Services;
 global using api.Interfaces.Repositories;
 global using api.Interfaces.UnitOfWork;
+
+
+global using Microsoft.AspNetCore.Authorization;
 
 
 global using Microsoft.AspNetCore.Mvc;
