@@ -20,6 +20,7 @@ global using api.Dtos.Stock.Response;
 global using api.Dtos.AbstractDto;
 global using api.Dtos.Comment.Request;
 global using api.Dtos.Comment.Response;
+global using api.Dtos.Account;
 
 global using api.Interfaces.Services;
 global using api.Interfaces.Repositories;

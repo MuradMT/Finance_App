@@ -44,7 +44,8 @@ public static class StockEndpoints
         .WithName("getAllStocks")
         .WithTags("Stocks")
         .WithSummary(Messages<Stock>.GetAll)
-        .Produces<List<StockDto>>(StatusCodes.Status200OK);
+        .Produces<List<StockDto>>(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status500InternalServerError);
 
         #endregion
 
@@ -72,7 +73,8 @@ public static class StockEndpoints
         .WithTags("Stocks")
         .WithSummary(Messages<Stock>.GetById)
         .Produces<StockDto>(StatusCodes.Status200OK)
-        .Produces(StatusCodes.Status404NotFound);
+        .Produces(StatusCodes.Status404NotFound)
+        .Produces(StatusCodes.Status500InternalServerError);
 
         #endregion
 
@@ -96,7 +98,8 @@ public static class StockEndpoints
         .WithSummary(Messages<Stock>.Create)
         .WithRequestValidation<CreateStockDto>()
         .Produces<StockDto>(StatusCodes.Status201Created)
-        .Produces(StatusCodes.Status400BadRequest);
+        .Produces(StatusCodes.Status400BadRequest)
+        .Produces(StatusCodes.Status500InternalServerError);
 
         #endregion
 
@@ -127,7 +130,8 @@ public static class StockEndpoints
         .WithRequestValidation<UpdateStockDto>()
         .Produces<StockDto>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status400BadRequest)
-        .Produces(StatusCodes.Status404NotFound);
+        .Produces(StatusCodes.Status404NotFound)
+        .Produces(StatusCodes.Status500InternalServerError);
 
         #endregion
 
@@ -153,7 +157,8 @@ public static class StockEndpoints
         .WithTags("Stocks")
         .WithSummary(Messages<Stock>.Delete)
         .Produces(StatusCodes.Status204NoContent)
-        .Produces(StatusCodes.Status404NotFound);
+        .Produces(StatusCodes.Status404NotFound)
+        .Produces(StatusCodes.Status500InternalServerError);
 
         #endregion
     }

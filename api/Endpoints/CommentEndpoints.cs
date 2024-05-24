@@ -2,7 +2,7 @@
 
 namespace api.Endpoints;
 
-public static class CommentEndpoint
+public static class CommentEndpoints
 {
 
     public static void MapCommentEndpoints(this IEndpointRouteBuilder app)
@@ -26,7 +26,8 @@ public static class CommentEndpoint
         .WithName("getAllComments")
         .WithTags("Comments")
         .WithSummary(Messages<Comment>.GetAll)
-        .Produces<List<CommentDto>>(StatusCodes.Status200OK);
+        .Produces<List<CommentDto>>(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status500InternalServerError);
 
         #endregion
 
@@ -54,7 +55,8 @@ public static class CommentEndpoint
         .WithTags("Comments")
         .WithSummary(Messages<Comment>.GetById)
         .Produces<CommentDto>(StatusCodes.Status200OK)
-        .Produces(StatusCodes.Status404NotFound);
+        .Produces(StatusCodes.Status404NotFound)
+        .Produces(StatusCodes.Status500InternalServerError);
 
         #endregion
 
@@ -81,7 +83,8 @@ public static class CommentEndpoint
         .WithSummary(Messages<Comment>.Create)
         .WithRequestValidation<CreateCommentDto>()
         .Produces<CommentDto>(StatusCodes.Status201Created)
-        .Produces(StatusCodes.Status400BadRequest);
+        .Produces(StatusCodes.Status400BadRequest)
+        .Produces(StatusCodes.Status500InternalServerError);
         #endregion
 
         #region  Update Comment
@@ -111,7 +114,8 @@ public static class CommentEndpoint
       .WithRequestValidation<UpdateCommentDto>()
       .Produces<CommentDto>(StatusCodes.Status200OK)
       .Produces(StatusCodes.Status400BadRequest)
-      .Produces(StatusCodes.Status404NotFound);
+      .Produces(StatusCodes.Status404NotFound)
+      .Produces(StatusCodes.Status500InternalServerError);
         #endregion
 
         #region Delete Comment
@@ -135,7 +139,8 @@ public static class CommentEndpoint
         .WithTags("Comments")
         .WithSummary(Messages<Comment>.Delete)
         .Produces(StatusCodes.Status204NoContent)
-        .Produces(StatusCodes.Status404NotFound);
+        .Produces(StatusCodes.Status404NotFound)
+        .Produces(StatusCodes.Status500InternalServerError);
         #endregion
     }
 }

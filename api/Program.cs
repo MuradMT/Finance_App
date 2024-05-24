@@ -26,6 +26,7 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapAccountEndpoints();
 app.MapStockEndpoints();    
 app.MapCommentEndpoints();
 

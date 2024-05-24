@@ -2,6 +2,26 @@
 
 public static class ConstantMessages
 {
+    #region Identity Messages
+    public const string Register = "User Register";
+    public const string Login = "User Login";
+    public const string User_Already_Exists="User Already Exists";
+    public const string User_Created="User Created";
+
+    #endregion
+
+    #region Register Validation Messages
+    public const string UserName_Not_Empty = "User Name is required";
+    public const string Email_Format_Is_Not_Valid = "Email format is not valid";
+    public const string Email_Not_Empty = "Email is required";
+    public const string Password_Not_Empty = "Password is required";
+     public const string Password_Min_Length = "Password must be at least 12 characters long.";
+    public const string Password_Require_Digit = "Password must contain at least one digit.";
+    public const string Password_Require_Lowercase = "Password must contain at least one lowercase letter.";
+    public const string Password_Require_Uppercase = "Password must contain at least one uppercase letter.";
+    public const string Password_Require_NonAlphanumeric = "Password must contain at least one non-alphanumeric character.";
+
+    #endregion
 
     #region Comment Validation Messages
     public const string Title_Not_Empty = "Title is required";

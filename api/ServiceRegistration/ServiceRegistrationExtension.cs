@@ -14,15 +14,14 @@ public static class ServiceRegistrationExtension
         services.AddDbContext<ApplicationDbContext>(opt =>
             opt.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-        services.AddIdentity<AppUser, IdentityRole>(opt =>
-        {
-            opt.Password.RequireDigit = true;
-            opt.Password.RequireLowercase = true;
-            opt.Password.RequireUppercase = true;
-            opt.Password.RequireNonAlphanumeric = true;
-            opt.Password.RequiredLength = 12;
-            opt.User.RequireUniqueEmail = true;
-        })
+        services.AddIdentity<AppUser, IdentityRole>()//(opt =>
+        // {
+        //     opt.Password.RequireDigit = true;
+        //     opt.Password.RequireLowercase = true;
+        //     opt.Password.RequireUppercase = true;
+        //     opt.Password.RequireNonAlphanumeric = true;
+        //     opt.Password.RequiredLength = 12;
+        // })
        .AddEntityFrameworkStores<ApplicationDbContext>();
 
        services.AddAuthentication(opt =>{
@@ -44,6 +43,7 @@ public static class ServiceRegistrationExtension
             ValidAudience = configuration["JWT:Audience"],//Audience is basically client
         };
        });
+       services.AddAuthorization();
 
         services.AddAutoMapper(opt =>
         {
@@ -56,10 +56,12 @@ public static class ServiceRegistrationExtension
 
         services.AddScoped<IUnitOfWork<Comment, ApplicationDbContext>, UnitOfWork<Comment, ApplicationDbContext>>();
         services.AddScoped<IUnitOfWork<Stock, ApplicationDbContext>, UnitOfWork<Stock, ApplicationDbContext>>();
-
+        
+        services.AddScoped<IAccountRepository, AccountRepository>();
         services.AddScoped<IStockRepository, StockRepository>();
         services.AddScoped<ICommentRepository, CommentRepository>();
-
+        
+        services.AddScoped<IAccountService, AccountService>();
         services.AddScoped<IStockService, StockService>();
         services.AddScoped<ICommentService, CommentService>();
 
