@@ -93,6 +93,7 @@ public static class ServiceRegistrationExtension
         services.AddScoped<IAccountRepository, AccountRepository>();
         services.AddScoped<IStockRepository, StockRepository>();
         services.AddScoped<ICommentRepository, CommentRepository>();
+        services.AddScoped<IPortfolioRepository, PortfolioRepository>();
 
         services.AddScoped<IAccountService, AccountService>();
         services.AddScoped<IStockService, StockService>();

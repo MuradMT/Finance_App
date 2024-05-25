@@ -29,6 +29,7 @@ app.UseAuthorization();
 app.MapAccountEndpoints();
 app.MapStockEndpoints();    
 app.MapCommentEndpoints();
+app.MapPortfolioEndpoints();
 
 app.Run();
 

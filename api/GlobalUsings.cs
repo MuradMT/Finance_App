@@ -15,6 +15,7 @@ global using api.Services.UnitOfWork;
 global using api.Validators.ValidationConfiguration;
 global using api.Filters;
 global using api.Endpoints.APIResponse;
+global using api.Extensions;
 
 global using System.Text;
 global using System.Security.Claims;
