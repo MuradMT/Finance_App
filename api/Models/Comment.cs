@@ -1,4 +1,5 @@
 ﻿namespace api.Models;
+[Table("Comments")]
 
 public class Comment:IEntity
 {
