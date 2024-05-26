@@ -1,7 +1,7 @@
 ﻿namespace api.Models;
 
 [Table("Portfolios")]
-public class Portfolio
+public class Portfolio:IEntity
 {
     public string AppUserId { get; set; }
     public AppUser AppUser { get; set; }

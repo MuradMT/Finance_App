@@ -38,6 +38,11 @@ public class StockRepository(ApplicationDbContext _context) : BaseRepository<Sto
         return await stocks.Skip(skip).Take(stockQuery.PageSize).ToListAsync();
     }
 
+    public async Task<Stock?> GetStockBySymbolAsync(string symbol)
+    {
+        return await _context.Stocks.FirstOrDefaultAsync(p => p.Symbol == symbol);
+    }
+
     public Task<Stock?> GetWithCommentsByIdAsync(int id)
     {
         return _context.Stocks.Include(p => p.Comments).FirstOrDefaultAsync(p => p.Id == id);
