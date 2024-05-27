@@ -8,6 +8,7 @@ public static class PortfolioEndpoints
 {
      public static void MapPortfolioEndpoints(this IEndpointRouteBuilder app){
          var routes = app.MapGroup("/api/portfolio").WithOpenApi();
+         #region Get Portfolio
 
          routes.MapGet("",async Task<IResult> (UserManager<AppUser> userManager,IPortfolioRepository _repo,IStockRepository _stockrepo,HttpContext _context)=>{
                 var userName=_context.User.GetUserName();
@@ -19,6 +20,10 @@ public static class PortfolioEndpoints
          .WithTags("Portfolio")
          .WithSummary("Get Portfolio")
          .RequireAuthorization();
+
+         #endregion
+
+         #region Create Portfolio
          
          routes.MapPost("",async Task<IResult> (IStockRepository _repo,IPortfolioRepository _portRepo,UserManager<AppUser> userManager,HttpContext _context,string symbol)=>{
                 var userName=_context.User.GetUserName();
@@ -45,6 +50,10 @@ public static class PortfolioEndpoints
          .WithSummary("Create Portfolio")
          .RequireAuthorization();
 
+         #endregion
+
+         #region Delete Portfolio
+
          routes.MapDelete("{id}",async Task<IResult> (IStockRepository _repo,IPortfolioRepository _portRepo,UserManager<AppUser> userManager,HttpContext _context,string symbol)=>{
                 var userName=_context.User.GetUserName();
                 var user=await userManager.FindByNameAsync(userName);
@@ -66,5 +75,7 @@ public static class PortfolioEndpoints
          .WithTags("Portfolios")
          .WithSummary("Delete Portfolio")
          .RequireAuthorization();
+
+         #endregion
      }
 }
