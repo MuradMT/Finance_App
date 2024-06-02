@@ -13,6 +13,8 @@ public static class CommentEndpoints
 
         #region  Get All Comments
 
+        
+
         routes.MapGet("",async Task<IResult> (ICommentService _service) =>
         {
             try
