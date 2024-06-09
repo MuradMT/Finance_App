@@ -45,8 +45,8 @@ public static class StockEndpoints
         .Produces<DataResponse<List<StockDto>>>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status401Unauthorized)
         .Produces(StatusCodes.Status403Forbidden)
-        .Produces(StatusCodes.Status500InternalServerError)
-        .RequireAuthorization(new AuthorizeAttribute { Roles = "Admin" });
+        .Produces(StatusCodes.Status500InternalServerError);
+        //.RequireAuthorization(new AuthorizeAttribute { Roles = "Admin" });
 
         #endregion
 

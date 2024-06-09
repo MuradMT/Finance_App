@@ -94,8 +94,8 @@ public static class CommentEndpoints
         .Produces<DataResponse<CommentDto>>(StatusCodes.Status201Created)
         .Produces(StatusCodes.Status401Unauthorized)
         .Produces<Response>(StatusCodes.Status400BadRequest)
-        .Produces(StatusCodes.Status500InternalServerError)
-        .RequireAuthorization();
+        .Produces(StatusCodes.Status500InternalServerError);
+        //.RequireAuthorization();
         #endregion
 
         #region  Update Comment

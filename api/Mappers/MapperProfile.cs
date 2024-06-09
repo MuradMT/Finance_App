@@ -9,7 +9,8 @@ public class MapperProfile : Profile
         CreateMap<CreateStockDto, Stock>()
         ;
 
-        CreateMap<Comment, CommentDto>();
+        CreateMap<Comment, CommentDto>()
+        .ForMember(x=>x.CreatedBy, opt => opt.MapFrom(src => src.AppUser.UserName));
         CreateMap<CreateCommentDto, Comment>();
 
         CreateMap<CreateCommentDto, Comment>()

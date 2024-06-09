@@ -7,7 +7,7 @@ public class StockRepository(ApplicationDbContext _context) : BaseRepository<Sto
 
     public async Task<List<Stock>> GetAllWithCommentsAsync(StockQuery stockQuery)
     {
-        var stocks = _context.Stocks.Include(p => p.Comments).AsQueryable();
+        var stocks = _context.Stocks.Include(p => p.Comments).ThenInclude(a=>a.AppUser).AsQueryable();
         if (!string.IsNullOrWhiteSpace(stockQuery.CompanyName))
         {
             stocks = stocks.Where(p => p.CompanyName.Contains(stockQuery.CompanyName));
