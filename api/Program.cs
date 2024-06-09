@@ -18,10 +18,12 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// app.UseCors(x => x
-//    .AllowAnyOrigin()
-//    .AllowAnyMethod()
-//    .AllowAnyHeader());
+app.UseCors(x => x
+   .AllowAnyOrigin()
+   .AllowAnyMethod()
+   .AllowAnyHeader()
+   //.WithOrigins("http://localhost:3000")
+   .SetIsOriginAllowed(origin=>true));
 
 app.UseAuthentication();
 app.UseAuthorization();
