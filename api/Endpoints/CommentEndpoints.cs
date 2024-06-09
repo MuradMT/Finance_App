@@ -1,7 +1,5 @@
 ﻿
 
-using api.Endpoints.APIResponse;
-
 namespace api.Endpoints;
 
 public static class CommentEndpoints
@@ -19,7 +17,7 @@ public static class CommentEndpoints
         {
             try
             {
-                var comments = await _service.GetAllAsync();
+                var comments = await _service.Get_Comments_With_User_Id_Async();
                 return TypedResults.Ok(new DataResponse<List<CommentDto>>(StatusCodes.Status200OK,Messages<Comment>.GetAll,comments));
             }
             catch (Exception e)
@@ -45,7 +43,7 @@ public static class CommentEndpoints
         {
             try
             {
-                var comment = await _service.GetByIdAsync(id);
+                var comment = await _service.GetComment_With_User_Id_Async(id);
 
                 return TypedResults.Ok(new DataResponse<CommentDto>(StatusCodes.Status200OK,Messages<Comment>.GetById,comment));
             }
@@ -72,14 +70,16 @@ public static class CommentEndpoints
         #region Create Comment
         //One to Many Create Example
         routes.MapPost("/{stockId:int}", async Task<IResult> ([FromRoute]int stockId,[FromBody] CreateCommentDto commentDto,
-        ICommentService _service,IStockService _stockService) =>
+        ICommentService _service,IStockService _stockService,HttpContext _context,UserManager<AppUser> userManager) =>
         {
             try
             {
                 if (!await _stockService.StockExists(stockId)){
                     return TypedResults.BadRequest(new Response(StatusCodes.Status400BadRequest,Messages<Stock>.Does_Not_Exist));
                 }
-                var comment = await _service.CreateWithStockIdAsync(commentDto, stockId);
+                var username=  _context.User.GetUserName();
+                var user=await userManager.FindByNameAsync(username);
+                var comment = await _service.CreateWithStockIdAsync(commentDto, stockId,user.Id);
                 return TypedResults.CreatedAtRoute(new DataResponse<CommentDto>(StatusCodes.Status201Created,Messages<Comment>.Create,comment), "getComment", new { id = comment.Id });
             }
             catch (Exception e)

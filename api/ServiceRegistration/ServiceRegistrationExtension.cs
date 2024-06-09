@@ -13,7 +13,10 @@ public static class ServiceRegistrationExtension
     public static void AddCustomServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDbContext<ApplicationDbContext>(opt =>
-            opt.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+            //opt.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+            opt.UseNpgsql(configuration.GetConnectionString("PgSqlConnection")));
+
+
 
         services.AddIdentity<AppUser, IdentityRole>()//(opt =>
         // {

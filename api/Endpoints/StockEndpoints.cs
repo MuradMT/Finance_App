@@ -1,7 +1,4 @@
-﻿
-
-
-namespace api.Endpoints;
+﻿namespace api.Endpoints;
 
 #region History of async/await
 //These keywords firstly introduced by c#
@@ -29,6 +26,7 @@ public static class StockEndpoints
              [FromQuery] int? page,
              [FromQuery] int? pageSize,
              IStockService _service) =>
+             
         {
             try
             {
