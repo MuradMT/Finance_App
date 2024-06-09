@@ -97,6 +97,7 @@ public static class ServiceRegistrationExtension
         services.AddScoped<IStockRepository, StockRepository>();
         services.AddScoped<ICommentRepository, CommentRepository>();
         services.AddScoped<IPortfolioRepository, PortfolioRepository>();
+        services.AddScoped<IFMPRepository, FMPRepository>();
 
         services.AddScoped<IAccountService, AccountService>();
         services.AddScoped<IStockService, StockService>();
@@ -105,5 +106,7 @@ public static class ServiceRegistrationExtension
 
         services.AddScoped<IConverter<Stock, UpdateStockDto>, StockConverter>();
         services.AddScoped<IConverter<Comment, UpdateCommentDto>, CommentConverter>();
+
+        services.AddHttpClient<IFMPRepository,FMPRepository>();
     }
 }

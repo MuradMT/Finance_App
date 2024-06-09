@@ -6,11 +6,12 @@ public class MapperProfile : Profile
     {
         CreateMap<Stock, StockDto>();
 
-        CreateMap<CreateStockDto, Stock>()
-        ;
+        CreateMap<CreateStockDto, Stock>();
+
+        CreateMap<FMPStockDto, Stock>();
 
         CreateMap<Comment, CommentDto>()
-        .ForMember(x=>x.CreatedBy, opt => opt.MapFrom(src => src.AppUser.UserName));
+        .ForMember(x => x.CreatedBy, opt => opt.MapFrom(src => src.AppUser.UserName));
         CreateMap<CreateCommentDto, Comment>();
 
         CreateMap<CreateCommentDto, Comment>()
